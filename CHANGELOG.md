@@ -25,5 +25,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `--spec` + `--data`, or `--stdin`, with `--format text|json`. The text output
   summarises the backtest and the market-impact block (average slippage, liquidity
   consumed, partial fills).
+- Ten language bindings over the `command_json` boundary: native Rust, Python
+  (PyO3), Node.js (napi-rs) and WASM (wasm-bindgen), plus C, C++, C#, Go, Java and
+  R over a C ABI hub. Each forwards the command string verbatim, so every binding
+  returns the byte-identical `ImpactReport`.
+- The golden corpus (`golden/`): six `spec`×`data` pairs and their blessed
+  `expected/` reports covering the book-model matrix (`thin_book`,
+  `thin_book_capped`, `deep_book`, `linear_impact`, `square_root`, `latency`),
+  generate-once / replay-everywhere.
+- Test rigor: byte-golden replay, serde/validation conformance, the walk-vs-naive
+  proof, proptest invariants over the fill engine, cargo-fuzz targets
+  (`spec_parse`, `book_walk`, `run_batch`, `latency_select`), a criterion bench
+  crate, and a cross-language golden guard in the bindings.
+- Runnable examples in all ten languages plus a CMake/ctest C/C++ harness, each
+  running the `thin_book` request to the same summary.
+- CI/CD: the full workflow suite (multi-OS × multi-language matrix, coverage,
+  cargo-deny, fuzz-smoke, header-drift, CodeQL, Scorecard, zizmor, links,
+  nightly bench) and a tag-gated, USER-GO release pipeline.
 
 [Unreleased]: https://github.com/wickra-lib/wickra-impact/commits/main
