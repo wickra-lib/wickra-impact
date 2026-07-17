@@ -1,16 +1,32 @@
 [package]
 name = "impact-bench"
+description = "Criterion benchmarks for the Wickra Impact backtester: run throughput by bar count and book model, on the parallel and single-threaded engines."
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
 authors.workspace = true
-description = "Criterion benchmarks for wickra-impact (scaffold)."
 publish = false
-
-[dependencies]
-impact-core = { path = "../impact-core", version = "0.1" }
 
 [lints]
 workspace = true
+
+[dependencies]
+# Default features off; the `parallel` feature below re-enables rayon so the
+# default bench measures the parallel path and `--no-default-features` measures
+# the single-threaded (WASM) path.
+impact-core = { path = "../impact-core", version = "0.1", default-features = false }
+
+[dev-dependencies]
+criterion = { workspace = true }
+serde_json = { workspace = true }
+wickra-backtest = { workspace = true }
+
+[features]
+default = ["parallel"]
+parallel = ["impact-core/parallel"]
+
+[[bench]]
+name = "impact"
+harness = false

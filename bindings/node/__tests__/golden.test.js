@@ -8,7 +8,11 @@
 
 const { test } = require("node:test");
 const assert = require("node:assert");
+const fs = require("node:fs");
+const path = require("node:path");
 const { Impact } = require("../index.js");
+
+const GOLDEN = path.resolve(__dirname, "..", "..", "..", "golden");
 
 const SPEC = {
   strategy: {
@@ -56,3 +60,20 @@ test("the report carries the measured impact", () => {
   const report = JSON.parse(new Impact(JSON.stringify(SPEC)).command(cmd));
   assert.strictEqual(report.impact_stats.avg_slippage_bps, 44.0);
 });
+
+// The cross-language golden: for every spec in the shared corpus, the Node
+// binding's response string must equal `golden/expected/<name>.json`
+// byte-for-byte — the same fixture the Rust core, the CLI and every other binding
+// reproduce.
+for (const specFile of fs.readdirSync(path.join(GOLDEN, "specs")).sort()) {
+  const name = path.basename(specFile, ".json");
+  test(`cross-language golden: ${name}`, () => {
+    const spec = fs.readFileSync(path.join(GOLDEN, "specs", specFile), "utf8");
+    const data = JSON.parse(fs.readFileSync(path.join(GOLDEN, "data", `${name}.json`), "utf8"));
+    const expected = fs
+      .readFileSync(path.join(GOLDEN, "expected", `${name}.json`), "utf8")
+      .trimEnd();
+    const got = new Impact(spec).command(JSON.stringify({ cmd: "run", data }));
+    assert.strictEqual(got, expected, `golden mismatch for ${name}`);
+  });
+}
