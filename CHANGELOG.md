@@ -14,5 +14,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (`impact-core`, `impact-cli`, `impact-bench`) with the language-binding crates,
   and the `wickra-backtest` / `wickra-exchange` git dependencies (the engine
   IMPACT inherits and the historical L2 order books it walks).
+- `impact-core`: the market-impact engine — the `BookModel` fill engine
+  (order-book walk, linear and square-root impact), the `ImpactSpec` envelope over
+  an embedded `wickra-backtest` strategy, latency-to-snapshot mapping, and the
+  `run` loop that reconstructs the inherited `BacktestReport` with real order-book
+  fills plus an `ImpactStats` block, exposed over the `command_json` boundary
+  (`Impact`). A fidelity test pins that a zero-impact run reproduces the engine's
+  own result.
 
 [Unreleased]: https://github.com/wickra-lib/wickra-impact/commits/main
