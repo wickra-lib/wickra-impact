@@ -1,16 +1,40 @@
 [package]
-name = "impact-wasm"
+name = "wickra-impact-wasm"
+description = "WebAssembly bindings for wickra-impact — measure market impact in the browser."
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
-repository.workspace = true
 authors.workspace = true
-description = "Wickra Impact — wasm binding (scaffold)."
+repository.workspace = true
+readme = "README.md"
 publish = false
 
-[dependencies]
-impact-core = { path = "../../crates/impact-core", version = "0.1" }
+[lib]
+crate-type = ["cdylib", "rlib"]
 
-[lints]
-workspace = true
+# Modern rustc emits a wasm feature set (bulk-memory, sign-ext, …) that the
+# wasm-opt bundled with wasm-pack is too old to validate. The wasm-bindgen output
+# is already valid and functional; skip the optional size-only optimizer pass.
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = false
+
+# Mirrors [workspace.lints] clippy set, plus the binding-shaped allows: the
+# wasm-bindgen surface returns `Result`/owned values that pedantic would flag for
+# `# Errors` / `#[must_use]` docs the JS boundary does not need.
+[lints.clippy]
+all = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+module_name_repetitions = "allow"
+must_use_candidate = "allow"
+missing_errors_doc = "allow"
+missing_panics_doc = "allow"
+
+[dependencies]
+# The impact core as a direct path dep (not `workspace = true`) so
+# `default-features = false` is honored — cargo silently ignores it on an
+# inherited workspace dependency. Default features off means no rayon, so a wasm
+# build is byte-identical to the native one — the exact cross-language golden
+# check.
+impact-core = { path = "../../crates/impact-core", version = "0.1", default-features = false }
+wasm-bindgen = "0.2"

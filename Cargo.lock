@@ -995,13 +995,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "impact-wasm"
-version = "0.1.0"
-dependencies = [
- "impact-core",
-]
-
-[[package]]
 name = "indexmap"
 version = "2.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2572,6 +2565,14 @@ version = "0.1.0"
 dependencies = [
  "impact-core",
  "pyo3",
+]
+
+[[package]]
+name = "wickra-impact-wasm"
+version = "0.1.0"
+dependencies = [
+ "impact-core",
+ "wasm-bindgen",
 ]
 
 [[package]]
