@@ -1,0 +1,15 @@
+[package]
+name = "impact-core"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+description = "Market-impact backtester: agent-based fills on the real historical L2 order book (scaffold)."
+
+[dependencies]
+wickra-backtest = { workspace = true }
+
+[lints]
+workspace = true

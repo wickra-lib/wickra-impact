@@ -1,0 +1,16 @@
+[package]
+name = "impact-c"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+description = "Wickra Impact — c binding (scaffold)."
+publish = false
+
+[dependencies]
+impact-core = { path = "../../crates/impact-core", version = "0.1" }
+
+[lints]
+workspace = true

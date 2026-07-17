@@ -1,0 +1,52 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/impact-core",
+    "crates/impact-cli",
+    "crates/impact-bench",
+    "bindings/python",
+    "bindings/node",
+    "bindings/wasm",
+    "bindings/c",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.86"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/wickra-lib/wickra-impact"
+authors = ["wickra-lib"]
+
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rust_decimal = "1"
+thiserror = "2"
+rayon = "1"
+clap = { version = "4", features = ["derive"] }
+wickra-core = "0.9"
+wickra-data = "0.9"
+# The backtest engine IMPACT inherits: StrategySpec, RunRequest, BacktestReport,
+# the OrderBook/Level types and the streaming engine. IMPACT replaces only the
+# fill stage. Git dependency (not yet on crates.io) carries a version pin so
+# cargo-deny's wildcard ban does not fire.
+wickra-backtest = { git = "https://github.com/wickra-lib/wickra-backtest", version = "0.1" }
+# Historical L2 order books IMPACT walks; used behind the `live` feature.
+wickra-exchange = { git = "https://github.com/wickra-lib/wickra-exchange", version = "0.1" }
+cbindgen = "0.27"
+criterion = "0.5"
+proptest = "1"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+all = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true

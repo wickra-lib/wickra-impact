@@ -1,0 +1,19 @@
+[package]
+name = "impact-cli"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+description = "The wickra-impact reference CLI (scaffold)."
+
+[[bin]]
+name = "wickra-impact"
+path = "src/main.rs"
+
+[dependencies]
+impact-core = { path = "../impact-core", version = "0.1" }
+
+[lints]
+workspace = true
