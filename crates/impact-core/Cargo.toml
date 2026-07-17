@@ -6,10 +6,23 @@ rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
 authors.workspace = true
-description = "Market-impact backtester: agent-based fills on the real historical L2 order book (scaffold)."
+description = "Market-impact backtester: agent-based fills on the real historical L2 order book."
 
 [dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
 wickra-backtest = { workspace = true }
+rayon = { workspace = true, optional = true }
+wickra-exchange = { workspace = true, optional = true }
+
+[features]
+default = ["parallel"]
+parallel = ["dep:rayon"]
+live = ["dep:wickra-exchange"]
+
+[dev-dependencies]
+proptest = { workspace = true }
 
 [lints]
 workspace = true
