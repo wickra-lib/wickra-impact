@@ -1,0 +1,1 @@
+{"strategy":{"spec_version":1,"symbol":"IMPACT","timeframe":"1h","indicators":{},"entry":{"ge":[{"price":"close"},0]},"exit":{"in_position":true},"sizing":{"type":"fixed_qty","qty":10.0},"execution":{"order_type":"market","fill_timing":"next_open"}},"book_model":{"kind":"square_root","coef":0.5},"participation_cap":1.0,"latency_ms":0}
