@@ -13,12 +13,17 @@ pub struct Impact {
 }
 
 impl Impact {
-    /// Build a handle from an [`ImpactSpec`] JSON string.
+    /// Build a handle from an [`ImpactSpec`] JSON string. An empty object (`"{}"`)
+    /// or an empty string defers configuration to a later `set_spec`.
     ///
     /// # Errors
     ///
-    /// Returns [`Error::Parse`] if the JSON is malformed.
+    /// Returns [`Error::Parse`] if the JSON is present but malformed.
     pub fn new(spec_json: &str) -> Result<Self> {
+        let trimmed = spec_json.trim();
+        if trimmed.is_empty() || trimmed == "{}" {
+            return Ok(Self { spec: None });
+        }
         let spec = ImpactSpec::from_json(spec_json)?;
         Ok(Self { spec: Some(spec) })
     }

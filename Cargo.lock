@@ -930,13 +930,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "impact-c"
-version = "0.1.0"
-dependencies = [
- "impact-core",
-]
-
-[[package]]
 name = "impact-cli"
 version = "0.1.0"
 dependencies = [
@@ -2371,6 +2364,14 @@ dependencies = [
  "thiserror",
  "wickra-core",
  "zeroize",
+]
+
+[[package]]
+name = "wickra-impact-c"
+version = "0.1.0"
+dependencies = [
+ "impact-core",
+ "serde_json",
 ]
 
 [[package]]
