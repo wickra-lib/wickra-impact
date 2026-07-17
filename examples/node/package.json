@@ -1,0 +1,9 @@
+{
+  "name": "wickra-impact-example-node",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A runnable Node.js example for wickra-impact.",
+  "type": "commonjs",
+  "scripts": { "start": "node run.js" },
+  "dependencies": { "wickra-impact": "^0.1.0" }
+}
