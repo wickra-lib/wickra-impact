@@ -1,0 +1,17 @@
+Package: wickraimpact
+Type: Package
+Title: Market-Impact Backtesting on the Real Historical Order Book
+Version: 0.1.0
+Authors@R: person("kingchenc", role = c("aut", "cre"), email = "support@wickra.org")
+Description: R bindings for wickra-impact over its C ABI hub: replace the fill
+    stage of a backtest with an order-book walk on the real historical L2 book,
+    so slippage is measured, not guessed - byte-identical to the CLI and every
+    other binding.
+License: MIT + file LICENSE | Apache License 2.0
+URL: https://github.com/wickra-lib/wickra-impact
+BugReports: https://github.com/wickra-lib/wickra-impact/issues
+Encoding: UTF-8
+NeedsCompilation: yes
+SystemRequirements: the wickra-impact C ABI shared library (WKIMPACT_LIB)
+    and its header (WKIMPACT_INC).
+RoxygenNote: 7.3.2

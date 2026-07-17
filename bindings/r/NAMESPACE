@@ -1,0 +1,4 @@
+useDynLib(wickraimpact, .registration = TRUE, .fixes = "C_")
+export(wkimpact_version)
+export(wkimpact_new)
+export(wkimpact_command)
