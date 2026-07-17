@@ -6,7 +6,7 @@ rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
 authors.workspace = true
-description = "The wickra-impact reference CLI (scaffold)."
+description = "The wickra-impact reference CLI: backtest a strategy against the real historical L2 order book."
 
 [[bin]]
 name = "wickra-impact"
@@ -14,6 +14,9 @@ path = "src/main.rs"
 
 [dependencies]
 impact-core = { path = "../impact-core", version = "0.1" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+clap = { workspace = true }
 
 [lints]
 workspace = true

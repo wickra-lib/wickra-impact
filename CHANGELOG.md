@@ -21,5 +21,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   fills plus an `ImpactStats` block, exposed over the `command_json` boundary
   (`Impact`). A fidelity test pins that a zero-impact run reproduces the engine's
   own result.
+- `wickra-impact` CLI over the core: `--request` (a `{spec, data}` bundle),
+  `--spec` + `--data`, or `--stdin`, with `--format text|json`. The text output
+  summarises the backtest and the market-impact block (average slippage, liquidity
+  consumed, partial fills).
 
 [Unreleased]: https://github.com/wickra-lib/wickra-impact/commits/main
