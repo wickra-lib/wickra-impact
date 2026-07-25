@@ -35,7 +35,7 @@ wickra-backtest = { git = "https://github.com/wickra-lib/wickra-backtest", versi
 # Historical L2 order books IMPACT walks; used behind the `live` feature.
 wickra-exchange = { git = "https://github.com/wickra-lib/wickra-exchange", version = "0.1" }
 cbindgen = "0.27"
-criterion = "0.5"
+criterion = "0.8"
 proptest = "1"
 
 [workspace.lints.rust]
