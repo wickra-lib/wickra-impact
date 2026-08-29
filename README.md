@@ -4,12 +4,23 @@
 
 [![Built on Wickra](https://img.shields.io/badge/built%20on-wickra-3b82f6)](https://github.com/wickra-lib/wickra)
 [![Status](https://img.shields.io/badge/status-pre--release-orange)](https://github.com/wickra-lib/wickra-impact)
-[![CI](https://github.com/wickra-lib/wickra-impact/actions/workflows/ci.yml/badge.svg)](https://github.com/wickra-lib/wickra-impact/actions/workflows/ci.yml)
-[![CodeQL](https://github.com/wickra-lib/wickra-impact/actions/workflows/codeql.yml/badge.svg)](https://github.com/wickra-lib/wickra-impact/actions/workflows/codeql.yml)
-[![License: MIT OR Apache-2.0](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
-[![OpenSSF Scorecard](https://img.shields.io/badge/OpenSSF-Scorecard-3b82f6)](https://scorecard.dev/viewer/?uri=github.com/wickra-lib/wickra-impact)
-[![Deterministic across 10 languages](https://img.shields.io/badge/deterministic%20across-10%20languages-3b82f6)](#use-in-any-language)
-[![Docs](https://img.shields.io/badge/docs-wickra.org-3b82f6)](https://wickra.org)
+[![CI](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/ci.svg)](https://github.com/wickra-lib/wickra-impact/actions/workflows/ci.yml)
+[![CodeQL](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/codeql.svg)](https://github.com/wickra-lib/wickra-impact/actions/workflows/codeql.yml)
+[![codecov](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/codecov.svg)](https://codecov.io/gh/wickra-lib/wickra-impact)
+[![GitHub release](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/release.svg)](https://github.com/wickra-lib/wickra-impact/releases/latest)
+[![crates.io](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/crates.svg)](https://crates.io/crates/wickra-impact)
+[![PyPI](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/pypi.svg)](https://pypi.org/project/wickra-impact/)
+[![npm](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/npm.svg)](https://www.npmjs.com/package/wickra-impact)
+[![NuGet](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/nuget.svg)](https://www.nuget.org/packages/Wickra.Impact)
+[![Maven Central](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/maven.svg)](https://central.sonatype.com/artifact/org.wickra/wickra-impact)
+[![Go module](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/go.svg)](https://pkg.go.dev/github.com/wickra-lib/wickra-impact-go)
+[![R-universe](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/r-universe.svg)](https://wickra-lib.r-universe.dev)
+[![License: MIT OR Apache-2.0](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/license.svg)](#license)
+[![OpenSSF Scorecard](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/scorecard.svg)](https://scorecard.dev/viewer/?uri=github.com/wickra-lib/wickra-impact)
+[![OpenSSF Best Practices](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/best-practices.svg)](https://www.bestpractices.dev)
+[![Build provenance](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/provenance.svg)](https://github.com/wickra-lib/wickra-impact/attestations)
+[![Docs](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/docs.svg)](https://wickra.org)
+[![Verified across 10 languages](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/verified.svg)](golden/)
 
 ---
 
@@ -139,3 +150,26 @@ Dual-licensed under either of
 - MIT license ([LICENSE-MIT](LICENSE-MIT))
 
 at your option.
+
+---
+
+<p align="center">
+  <a href="https://github.com/wickra-lib/wickra-impact">
+    <img alt="GitHub stars" src="https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/stars.svg">
+  </a>
+  <a href="https://github.com/wickra-lib/wickra-impact/network/members">
+    <img alt="GitHub forks" src="https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/forks.svg">
+  </a>
+  <a href="https://github.com/wickra-lib/wickra-impact/issues">
+    <img alt="GitHub issues" src="https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/issues.svg">
+  </a>
+</p>
+
+<p align="center">
+  Built on <a href="https://github.com/wickra-lib/wickra">Wickra</a>. If it saved you time, the cheapest way to say thanks is to ⭐ the repo.
+</p>
+
+<p align="center">
+  <img alt="wickra-impact star history" width="640"
+       src="https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/star-history.svg">
+</p>

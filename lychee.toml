@@ -22,4 +22,6 @@ exclude = [
     "^https?://pypi\\.org/project/wickra-impact",
     "^https?://www\\.npmjs\\.com/package/wickra-impact",
     "^https?://pkg\\.go\\.dev/github\\.com/wickra-lib/wickra-impact-go",
+    "^https?://www\\.nuget\\.org/packages/Wickra\\.Impact",
+    "^https?://central\\.sonatype\\.com/artifact/org\\.wickra/wickra-impact",
 ]
