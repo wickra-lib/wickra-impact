@@ -41,6 +41,13 @@ the fill stage** with an order-book-walk fill engine. It is usable in **Rust,
 Python, Node.js, WASM, C, C++, C#, Go, Java and R** over a JSON-over-C-ABI
 boundary (`command_json`), plus a reference CLI.
 
+> **Part of the [Wickra ecosystem](https://github.com/wickra-lib):** the same
+> data-driven core and ten-language binding surface also power
+> [wickra-backtest](https://github.com/wickra-lib/wickra-backtest),
+> [wickra-proof](https://github.com/wickra-lib/wickra-proof),
+> [wickra-verify](https://github.com/wickra-lib/wickra-verify) and 20 more — see
+> [the full list](https://github.com/wickra-lib).
+
 > **Status:** early development (0.1.0, unreleased). The fill engine, the
 > reference CLI, the ten-language binding surface, the golden corpus and the full
 > CI matrix are all in place; the first published release is still pending.
