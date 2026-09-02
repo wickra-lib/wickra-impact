@@ -24,6 +24,7 @@ use crate::latency;
 use crate::spec::ImpactSpec;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
+use std::sync::Arc;
 use wickra_backtest::core::metrics;
 use wickra_backtest::core::registry::{self, BarInput, EvalIndicator};
 use wickra_backtest::core::report::REPORT_SCHEMA_VERSION;
@@ -171,12 +172,12 @@ pub fn run(data: &RunData, spec: &ImpactSpec) -> Result<ImpactReport> {
     let model = &spec.book_model;
 
     // Build the indicator set (reuse the engine's registry + warmup).
-    let mut indicators: BTreeMap<String, Box<dyn EvalIndicator>> = BTreeMap::new();
+    let mut indicators: BTreeMap<Arc<str>, Box<dyn EvalIndicator>> = BTreeMap::new();
     let mut max_warmup = 0usize;
     for (name, ind) in &strat.indicators {
         let built = registry::build(&ind.kind, &ind.params)?;
         max_warmup = max_warmup.max(built.warmup());
-        indicators.insert(name.clone(), built);
+        indicators.insert(Arc::from(name.as_str()), built);
     }
     let warmup = strat.warmup.map_or(max_warmup, |w| w as usize);
 
@@ -247,9 +248,9 @@ pub fn run(data: &RunData, spec: &ImpactSpec) -> Result<ImpactReport> {
                 cross_section: None,
             };
             if let Some(v) = ind.update(&input) {
-                values.insert(name.clone(), v);
+                values.insert(Arc::clone(name), v);
                 for (field, fv) in ind.fields() {
-                    values.insert(format!("{name}.{field}"), fv);
+                    values.insert(Arc::from(format!("{name}.{field}").as_str()), fv);
                 }
             }
         }
@@ -399,6 +400,8 @@ pub fn run(data: &RunData, spec: &ImpactSpec) -> Result<ImpactReport> {
     let fees_paid = acc.fees;
     let report = BacktestReport {
         schema_version: REPORT_SCHEMA_VERSION,
+        symbol: strat.symbol.clone(),
+        timeframe: strat.timeframe.clone(),
         metrics: computed,
         trades: pf.trades.clone(),
         equity,
