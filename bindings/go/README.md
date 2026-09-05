@@ -1,3 +1,7 @@
+<p align="center">
+  <a href="https://wickra.org"><img src="https://raw.githubusercontent.com/wickra-lib/.github/main/profile/wickra-banner.webp?v=514" alt="Wickra Impact — the backtester that knows you would have moved the market" width="100%"></a>
+</p>
+
 # Wickra Impact — Go
 
 Go bindings for the Wickra Impact market-impact backtester over its C ABI hub via
