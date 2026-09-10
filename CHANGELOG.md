@@ -9,6 +9,59 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **The CI Java example step compiled a file that is not there.** The `examples`
+  job was ported from the screener, whose Java example is a single
+  `examples/java/Scan.java` built with `javac`. This repository ships a Maven
+  project instead, so the step compiled a missing file and then asserted on
+  output the example never prints. It now builds the binding into the local
+  repository and runs the example through `mvn exec:exec`, the way the example's
+  own javadoc documents -- verified by running it.
+
+- **The `examples` job installed a lockfile that is not here.** It names
+  `.github/requirements/ci-dev-py3.txt`, and so does `scripts/update-lockfiles.sh`,
+  but the directory held a single `ci-dev.txt` that nothing referenced. The split
+  is not cosmetic: the Python matrix includes 3.9, and that single lock pinned
+  `pytest==9.1.1` and `iniconfig==2.3.0`, both of which declare
+  requires-python >= 3.10.
+
+- **The `python` job installed unpinned.** `pip install maturin pytest` is a
+  fetch of whatever the index serves that minute -- the exact thing the locked
+  file exists to prevent. It now installs the hash-locked row for its
+  interpreter, and the advisory the 3.9 pin sits inside is recorded with its
+  reason in `osv-scanner.toml`.
+
+- **Dependabot watched directories that do not exist**, so it reported nothing
+  and the silence read as calm. `nuget` pointed at `WickraCompile.Tests`, a
+  project name from another repository; `pip` did not cover
+  `/.github/requirements` and `npm` did not cover `/examples/node`.
+
+- **The workspace's own core was pinned as a range.** `impact-core` was named
+  six times as `version = "0.1"` -- a caret range -- and the root manifest
+  carried no `[workspace.dependencies]` entry for it at all. A published
+  `impact-cli` 0.1.0 would have accepted `impact-core` 0.1.99, a crate resolving
+  against a core it was never built against, in a workspace whose whole point is
+  that the pieces move together. It also hid the line from `bump_version.py` and
+  `check_version_sync.py`, both of which look for the exact version.
+
+- **`release.yml` overwrote the binding READMEs before packing.** Three steps
+  copied the root README over `bindings/python/README.md` (wheel and sdist) and
+  `bindings/node/README.md`. They date from when the bindings had no README of
+  their own; they do now, one per registry, and `check_readme_links.py` exists to
+  keep their links absolute because a relative link is dead on PyPI and npm. The
+  copy threw that away and shipped the root README, whose links are relative by
+  design. The remaining relative links in the C, C#, Go and WASM READMEs are
+  absolute now.
+
+- **The Python wheel would have shipped without its licence texts.**
+  `bindings/python/` carried neither `LICENSE-MIT` nor `LICENSE-APACHE`, so
+  maturin had nothing to include, while every crate and the release archive
+  carry both.
+
+- **`SECURITY.md` named a support policy for releases that do not exist yet.**
+  It promised fixes for "the latest `0.x` release line" where there is no
+  released line; it now says plainly that nothing is published and names `0.1.0`
+  as the first version that will be.
+
 - **`CITATION.cff` described the wrong project.** The abstract and the keyword
   list were the feature store's, describing a feature matrix for a market-impact
   model. `CITATION.cff` is what GitHub's citation box and Zenodo quote back at a
