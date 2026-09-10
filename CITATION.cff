@@ -2,11 +2,11 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 title: "wickra-impact"
 abstract: >-
-  A deterministic multi-symbol feature store built on the Wickra core: a
-  data-driven FeatureSpec is folded over each symbol's history with 514 O(1)
-  streaming indicators, labels are joined over a forward horizon, and the result
-  is materialized as a feature matrix, exposed as a JSON-over-C-ABI data API in
-  ten languages.
+  A backtester that prices its own market impact, built on the Wickra core:
+  instead of filling an order at the close or at a fixed slippage estimate, it
+  walks the order through the recorded L2 order book level by level, or prices
+  it from an analytic impact curve, so the reported slippage is measured rather
+  than assumed. Exposed as a JSON-over-C-ABI data API in ten languages.
 type: software
 authors:
   - alias: kingchenc
@@ -18,7 +18,9 @@ license:
   - Apache-2.0
 keywords:
   - trading
-  - features
-  - indicators
-  - streaming
+  - market-impact
+  - slippage
+  - order-book
+  - backtesting
+  - execution
   - finance

@@ -9,6 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **`CITATION.cff` described the wrong project.** The abstract and the keyword
+  list were the feature store's, describing a feature matrix for a market-impact
+  model. `CITATION.cff` is what GitHub's citation box and Zenodo quote back at a
+  reader as the project's own words, so it is the one file where a wrong
+  description is the project saying it.
+
+- **The Ecosystem section repeated two claims their own repositories had already
+  corrected**: DARWIN at "millions of backtests per second" across "the
+  514-indicator space", where its benchmark says hundreds of thousands over the
+  registry, and GENOME as "a 514-dim live vector", where the dimension is
+  whatever the spec's feature list names.
+
 - **CONTRIBUTING.md described a different repository** — feature kinds, label
   kinds, `docs/FEATURES.md`, `docs/LABELS.md`, all of it
   wickra-feature-store's. This is what has been failing the link check on
