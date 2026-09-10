@@ -9,6 +9,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **The `latency` golden case proved nothing.** It carried the same two-bar
+  dataset as every other spec, and `fill_timing: next_open` plus `ceil(1000 /
+  3_600_000)` = one bar put the fill on bar 2 of a two-bar history -- so the
+  order was cancelled and the blessed report was all zeros: no trades, no
+  slippage, no liquidity consumed. A case named `latency` was pinning "the
+  dataset is too short". It now runs over four bars whose books step from 100.10
+  to 101.50, so the entry price is what shows the latency moved the fill, and
+  two tests pin both halves of the rule: a latency spanning a bar fills against
+  the later book, and one running past the recorded history cancels.
+
+- **`cargo-deny` was set to warn about duplicated crates, so it noted that split
+  and moved on.** It is an error now. Only four duplicates exist across this
+  workspace and each is a crate part-way through a major release reached through
+  two ecosystems; they are skipped by name with the reason recorded, so a fifth
+  still fails. Verified by putting 6.1.3 back and watching the check fail on
+  `convert_case` before the compiler ever ran.
+
+- **`actionlint` failed on five shell constructs the screener had already
+  fixed.** `a && b || c` is not if-then-else -- when the publish succeeded but
+  the echo failed, the fallback branch ran and reported "already published";
+  `local pkg=$(basename …)` and `export PATH="$(cygpath …)"` hide the command's
+  exit status behind `local`/`export`; and an asset count taken from `ls` breaks
+  on a filename containing a newline. The runner-label config the linter needs
+  for `windows-11-arm` was missing too.
+
+- **A yanked crate was in the lockfile.** `wnaf` 0.14.0, reached through `p256`
+  -> `wickra-exchange-core`, was yanked from crates.io; 0.14.1 is not.
+
 - **Three steps of the `examples` job ran a file that is not here.** Python,
   Node.js and R each invoked `examples/<lang>/scan.*` -- the screener's file
   name, left over from the port -- so they died on a missing file before

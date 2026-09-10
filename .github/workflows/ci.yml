@@ -435,7 +435,8 @@ jobs:
           export WKIMPACT_INC="${WKIMPACT_INC//\\//}"
           export WKIMPACT_LIB="${WKIMPACT_LIB//\\//}"
           if command -v cygpath >/dev/null 2>&1; then
-            export PATH="$(cygpath -u "$WKIMPACT_LIB"):$PATH"
+            WKIMPACT_LIB_UNIX=$(cygpath -u "$WKIMPACT_LIB")
+            export PATH="$WKIMPACT_LIB_UNIX:$PATH"
           else
             export LD_LIBRARY_PATH="$WKIMPACT_LIB:$LD_LIBRARY_PATH"
             export DYLD_LIBRARY_PATH="$WKIMPACT_LIB:$DYLD_LIBRARY_PATH"
