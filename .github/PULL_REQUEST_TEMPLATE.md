@@ -10,7 +10,7 @@
 - [ ] `cargo test --workspace --all-features` and `--no-default-features` pass (parallel == sequential)
 - [ ] `cargo deny check` is clean
 - [ ] Tests added/updated (prefer hand-computed expectations for core changes)
-- [ ] The spec stays data (a serde `FeatureSpec`), never Rust closures
+- [ ] The spec stays data (a serde `ImpactSpec`), never Rust closures
 - [ ] Binding surface mirrored across languages; golden matrices regenerated if the schema changed
 - [ ] `CHANGELOG.md` updated under `[Unreleased]`
 

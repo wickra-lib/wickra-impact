@@ -9,8 +9,8 @@ labels: bug
 A clear description of what is wrong.
 
 **Reproduction**
-The smallest input that reproduces the problem — a `FeatureSpec` and a small
-sample universe, or the exact `command` JSON.
+The smallest input that reproduces the problem — a `ImpactSpec` and a small
+sample dataset, or the exact `command` JSON.
 
 ```
 # paste a minimal repro here (spec + a few candles / a command JSON)

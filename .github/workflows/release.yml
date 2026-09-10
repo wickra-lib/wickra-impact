@@ -846,7 +846,7 @@ jobs:
             R (r-universe):
 
             ```r
-            install.packages("wickrafeaturestore", repos = "https://wickra-lib.r-universe.dev")
+            install.packages("wickraimpact", repos = "https://wickra-lib.r-universe.dev")
             ```
 
             ### Attached assets
