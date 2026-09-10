@@ -4,7 +4,9 @@
   "description": "Native binding for wickra-impact (Windows arm64 MSVC). Installed automatically as an optional dependency of wickra-impact on matching platforms.",
   "main": "wickra-impact.win32-arm64-msvc.node",
   "files": [
-    "wickra-impact.win32-arm64-msvc.node"
+    "wickra-impact.win32-arm64-msvc.node",
+    "LICENSE-MIT",
+    "LICENSE-APACHE"
   ],
   "license": "MIT OR Apache-2.0",
   "engines": {

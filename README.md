@@ -52,6 +52,26 @@ boundary (`command_json`), plus a reference CLI.
 > reference CLI, the ten-language binding surface, the golden corpus and the full
 > CI matrix are all in place; the first published release is still pending.
 
+```rust
+use impact_core::{run, ImpactSpec, RunData};
+
+// The moat: walk the order the strategy sent across the real historical book
+// and report the price it actually paid, not the one it hoped for.
+let spec: ImpactSpec = serde_json::from_str(r#"{
+    "strategy": { … },
+    "book_model": {"kind": "orderbook_walk"},
+    "participation_cap": 1.0,
+    "latency_ms": 0
+}"#)?;
+
+let report = run(&data, &spec)?;
+println!("{} bps average slippage", report.impact_stats.avg_slippage_bps);
+```
+
+`orderbook_walk` needs a book, and refuses a run whose data carries none rather
+than falling through to a no-op that would report zero slippage. The analytic
+models (`linear_impact`, `square_root`) need no book and say so.
+
 ## Documentation
 
 - [ARCHITECTURE](docs/ARCHITECTURE.md) — the crates, the inheritance boundary and the JSON-over-C-ABI surface.
@@ -120,18 +140,60 @@ The same handle + `command_json` + `version` surface ships for Rust, Python,
 Node.js, WASM, and — over a C ABI hub — C, C++, C#, Go, Java and R. Each binding
 forwards the command string verbatim, so the report they return is identical.
 
-## Building from source
+## Building everything from source
 
 ```bash
-cargo build
-cargo test
+cargo build --workspace --all-features                 # Rust core + CLI + C ABI
+(cd bindings/python && maturin develop --release)      # Python
+(cd bindings/node   && npm ci && npm run build)        # Node
+(cd bindings/wasm   && wasm-pack build --target web)   # WASM
+(cd bindings/csharp && dotnet build)                   # C#
+(cd bindings/go     && go build ./...)                 # Go
+(cd bindings/java   && mvn -q package)                 # Java
+R CMD INSTALL bindings/r                               # R
 ```
+
+The C-ABI consumers (C/C++, C#, Go, Java, R) need the C ABI library first —
+`cargo build --release -p wickra-impact-c` — on the loader path.
+
+## Project layout
+
+```
+crates/impact-core     the fill engine: book walk, impact models, latency
+crates/impact-cli      the reference `wickra-impact` binary
+crates/impact-bench    criterion benchmarks
+bindings/              the ten language surfaces over one C ABI hub
+golden/                the cross-language corpus: specs, data, blessed reports
+examples/              one runnable example per language
+```
+
+## Testing
+
+```bash
+cargo test --workspace --all-features
+cargo clippy --workspace --all-targets --all-features -- -D warnings
+cargo fmt --all --check
+```
+
+Every binding replays the same golden runs from [`golden/`](golden/) and must
+produce the identical bytes; that corpus is the cross-language contract, not a
+per-language approximation. `python scripts/check_binding_surface.py` asserts the
+ten surfaces stayed in step.
 
 ## Requirements
 
-- Rust 1.86+ (MSRV). Impact depends on `wickra-core` (crates.io) and, as git
-  dependencies, `wickra-backtest` (the engine it inherits) and `wickra-exchange`
-  (historical L2 books, behind the `live` feature).
+- **Rust 1.86+** — the workspace MSRV; the Node binding needs **Rust 1.88**.
+- **Python 3.9+** — the Python binding.
+- **Node 22+** — the Node binding.
+- **Go 1.23+** — the Go binding.
+- **Java 22+** — the Java binding.
+- **R 2.10+** — the R package.
+- **.NET 8+** — the C# binding.
+- A **C11 / C++17** compiler with CMake for the C and C++ examples.
+
+Impact depends on `wickra-core` for the indicator types, `wickra-backtest` for
+the engine it inherits, and `wickra-exchange` for historical L2 books behind the
+`live` feature. All three come from crates.io.
 
 ## Benchmarks
 
@@ -148,6 +210,41 @@ recorded market data and strategy specs only — no keys, no order placement.
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Ecosystem
+
+Part of the [Wickra](https://github.com/wickra-lib/wickra) family — each one a
+data-driven core with a CLI and the same ten-language binding surface:
+
+- [**wickra**](https://github.com/wickra-lib/wickra) — main library (Rust core + Python / Node.js / WASM bindings + a C ABI for C / C++ / C# / Go / Java / R)
+- [**wickra-playground**](https://github.com/wickra-lib/wickra-playground) — a polyglot strategy playground: one StrategySpec live side by side in Python, Rust, JS and Go, entirely in the browser
+- [**wickra-exchange**](https://github.com/wickra-lib/wickra-exchange) — unified market-data + execution across ten crypto exchanges
+- [**wickra-backtest**](https://github.com/wickra-lib/wickra-backtest) — event-driven backtester over the Wickra core
+- [**wickra-terminal**](https://github.com/wickra-lib/wickra-terminal) — the trading terminal: a TUI and a browser renderer over the stack
+- [**wickra-xray**](https://github.com/wickra-lib/wickra-xray) — market-microstructure explorer: footprint, order-book heatmap, liquidation map, funding/OI divergence
+- [**wickra-radar**](https://github.com/wickra-lib/wickra-radar) — perp-universe alert radar: OI delta, funding flip, book imbalance, liquidation clusters, OI/price divergence
+- [**wickra-copilot**](https://github.com/wickra-lib/wickra-copilot) — local market copilot grounded in real order-book, liquidation and funding microstructure
+- [**wickra-shazam**](https://github.com/wickra-lib/wickra-shazam) — match an asset's current microstructure fingerprint against its entire history
+- [**wickra-benchmark**](https://github.com/wickra-lib/wickra-benchmark) — reproducible, golden-verified benchmark suite — recompute any (strategy, dataset, report) in ten languages and confirm it byte-for-byte
+- [**wickra-strategy-ci**](https://github.com/wickra-lib/wickra-strategy-ci) — Jest for trading strategies: golden-pin the report, catch regressions in CI, property-test against fuzzed data
+- [**wickra-verify**](https://github.com/wickra-lib/wickra-verify) — confirm or refute a claimed backtest report against its strategy and data, in ten languages
+- [**wickra-proof**](https://github.com/wickra-lib/wickra-proof) — Proof-of-Backtest: deterministic (spec, data) → report + blake3 hash, recomputable byte-for-byte in ten languages
+- [**wickra-zk**](https://github.com/wickra-lib/wickra-zk) — prove a backtest zero-knowledge — on-chain-verifiable performance without revealing the data or the strategy
+- [**wickra-darwin**](https://github.com/wickra-lib/wickra-darwin) — evolutionary strategy search at millions of backtests per second, mutating and crossing JSON specs across the 514-indicator space
+- [**wickra-gym**](https://github.com/wickra-lib/wickra-gym) — a Gymnasium-compatible, microstructure-aware backtest environment with O(1) steps for deterministic RL rollouts
+- [**wickra-feature-store**](https://github.com/wickra-lib/wickra-feature-store) — OHLCV and microstructure streams into ML-ready feature matrices over 514 O(1) streaming indicators
+- [**wickra-genome**](https://github.com/wickra-lib/wickra-genome) — a vector database of the whole market: every asset a 514-dim live vector, for similarity search, clustering and anomaly detection
+- [**wickra-timemachine**](https://github.com/wickra-lib/wickra-timemachine) — scrub the whole market like a video — every symbol, full order book, rewound to any moment via deterministic re-fold
+- [**wickra-synth**](https://github.com/wickra-lib/wickra-synth) — deterministic synthetic market microstructure: OHLCV, order book, trades and funding from a single seed
+- [**wickra-compile**](https://github.com/wickra-lib/wickra-compile) — compile a strategy spec into a standalone deployable: a WASM module, a self-contained binary, or a `no_std` artifact
+- [**wickra-embed**](https://github.com/wickra-lib/wickra-embed) — allocation-free, `no_std` streaming indicators for bare-metal and HFT, byte-for-byte identical to the core
+- [**wickra-pico**](https://github.com/wickra-lib/wickra-pico) — the O(1) indicator core running bare-metal on a $5 Raspberry Pi Pico — the LED blinks on the EMA cross
+
+The screener's own guides live in [`docs/`](docs/) beside the code; its site,
+with the in-browser demo and the benchmark figures, is at
+[screener.wickra.org](https://screener.wickra.org). The indicator library's
+reference is at [docs.wickra.org](https://docs.wickra.org) and the org landing
+page at [wickra.org](https://wickra.org).
 
 ## License
 
@@ -180,3 +277,11 @@ at your option.
   <img alt="wickra-impact star history" width="640"
        src="https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/star-history.svg">
 </p>
+
+## Disclaimer
+
+Wickra Impact is a research and backtesting tool. It measures the slippage an
+order would have paid against recorded market data; it does not place orders,
+and a measurement over history is not a prediction about the future. Nothing
+here is financial advice. Trading carries risk, including the loss of the
+capital committed. Use it at your own risk.

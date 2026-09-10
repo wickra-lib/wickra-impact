@@ -7,6 +7,54 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **CONTRIBUTING.md described a different repository** — feature kinds, label
+  kinds, `docs/FEATURES.md`, `docs/LABELS.md`, all of it
+  wickra-feature-store's. This is what has been failing the link check on
+  `main`.
+
+- **`CMAKE_CXX_STANDARD` asked for C++14** while the C++ hull requires C++17.
+  Nothing compiled it, so nothing found out.
+
+### Added
+
+- **Book-refusal tests in every binding.** Python, Node, Go, Java, C#, R, WASM
+  and C each check that `orderbook_walk` refuses a run whose data carries no
+  book, that it measures 44 bps when the book is there, that an analytic model
+  needs none, and that the run is reproducible. That refusal is the one way this
+  engine's claim can fail quietly: a binding that swallowed it would report zero
+  slippage from the model whose entire purpose is to find some.
+
+- **A core test for the same refusal**, which the Rust suite did not have
+  either.
+
+- **A golden test for the C binding**, which had none: all six committed specs,
+  byte-identical.
+
+- The blueprint scaffold: `LICENSES/`, `docs/README.md`, the five long-form
+  issue templates, the CodeQL config, the actionlint and CodSpeed workflows, the
+  five check scripts, a C++ hull, licence copies in every published crate and
+  npm package, and a WASM example.
+
+- CI gains `osv`, `links`, `binding-surface`, `semver`, `fuzz-smoke`,
+  `examples` and `python-wheel-container-smoke`; the release pipeline gains the
+  `gate` and `guard` jobs, provenance over the nupkg, jar and C ABI archives, a
+  Maven artifact on the release page, and a Go mirror that builds before it
+  publishes.
+
+### Changed
+
+- **The family pins move to the published releases.** `wickra-backtest` and
+  `wickra-exchange` come from crates.io rather than git revs, and `wickra-core`
+  / `wickra-data` rise from 0.9 to 1.0, so the tree carries one set of indicator
+  types rather than two that share none.
+
+- **`BacktestReport` gained `symbol` and `timeframe`** with that bump, so the
+  blessed reports were re-blessed. Every number in them is unchanged — only the
+  two new fields differ — which is what says the fill engine itself did not
+  move.
+
 ### Added
 
 - Repository scaffold: governance, supply-chain configuration (`deny.toml`,

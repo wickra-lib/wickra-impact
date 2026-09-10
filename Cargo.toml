@@ -1,5 +1,8 @@
 [workspace]
 resolver = "2"
+# cargo-fuzz builds this crate on its own, with sanitizer flags the workspace
+# must not inherit, so it is not a member.
+exclude = ["fuzz"]
 members = [
     "crates/impact-core",
     "crates/impact-cli",
@@ -25,17 +28,19 @@ rust_decimal = "1"
 thiserror = "2"
 rayon = "1"
 clap = { version = "4", features = ["derive"] }
-wickra-core = "0.9"
-wickra-data = "0.9"
+# Held at the same major as the copy `wickra-backtest` resolves, so the tree
+# carries one `wickra-core` and one set of indicator types rather than two that
+# share none at all.
+wickra-core = "1.0"
+wickra-data = "1.0"
 # The backtest engine IMPACT inherits: StrategySpec, RunRequest, BacktestReport,
 # the OrderBook/Level types and the streaming engine. IMPACT replaces only the
-# fill stage. Git dependency (not yet on crates.io) carries a version pin so
-# cargo-deny's wildcard ban does not fire.
-wickra-backtest = { git = "https://github.com/wickra-lib/wickra-backtest", version = "0.1" }
+# fill stage.
+wickra-backtest = "0.1.4"
 # Historical L2 order books IMPACT walks; used behind the `live` feature.
-wickra-exchange = { git = "https://github.com/wickra-lib/wickra-exchange", version = "0.1" }
+wickra-exchange = "0.1.3"
 cbindgen = "0.27"
-criterion = "0.8"
+criterion = { package = "codspeed-criterion-compat", version = "5.0.1", features = ["html_reports"] }
 proptest = "1"
 
 [workspace.lints.rust]
