@@ -8,6 +8,8 @@
   <version>0.1.0</version>
   <packaging>jar</packaging>
   <properties>
+    <!-- The built C ABI library; override with -Dnative.lib.dir=... -->
+    <native.lib.dir>${project.basedir}/../../target/release</native.lib.dir>
     <maven.compiler.release>22</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -18,4 +20,26 @@
       <version>0.1.0</version>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.5.0</version>
+        <configuration>
+          <!-- exec:exec spawns a fresh JVM so the FFM native-access flag and
+               the native.lib.dir system property take effect. -->
+          <executable>java</executable>
+          <arguments>
+            <argument>--enable-native-access=ALL-UNNAMED</argument>
+            <argument>-Dnative.lib.dir=${native.lib.dir}</argument>
+            <argument>-classpath</argument>
+            <classpath/>
+            <argument>org.wickra.impact.examples.Run</argument>
+          </arguments>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

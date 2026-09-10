@@ -16,7 +16,7 @@ workspace = true
 # Default features off; the `parallel` feature below re-enables rayon so the
 # default bench measures the parallel path and `--no-default-features` measures
 # the single-threaded (WASM) path.
-impact-core = { path = "../impact-core", version = "0.1", default-features = false }
+impact-core = { path = "../impact-core", version = "0.1.0", default-features = false }
 
 [dev-dependencies]
 criterion = { workspace = true }
