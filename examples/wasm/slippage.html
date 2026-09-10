@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>wickra-impact WASM — what the order actually paid</title>
+  <style>
+    body { font-family: ui-sans-serif, system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; color: #1d1d1d; }
+    h1 { margin-bottom: .25rem; }
+    .meta { color: #666; margin-top: 0; }
+    table { border-collapse: collapse; width: 100%; margin-top: 1rem; font-variant-numeric: tabular-nums; }
+    th, td { border: 1px solid #ddd; padding: .5rem .75rem; text-align: right; }
+    th:first-child, td:first-child { text-align: left; }
+    th { background: #fafafa; }
+    code { background: #f4f4f4; padding: .1rem .25rem; border-radius: .2rem; font-size: .9em; }
+    pre { background: #f6f8fa; padding: .75rem; border-radius: .3rem; overflow-x: auto; }
+    button { padding: .5rem 1rem; }
+    #status { margin-top: 1rem; color: #666; }
+  </style>
+</head>
+<body>
+  <h1>wickra-impact WASM — what the order actually paid</h1>
+  <p class="meta">
+    The same example every other language carries: send a ten-unit market order
+    into a book whose top level holds three, and compare what each fill model
+    says it cost. <code>orderbook_walk</code> walks all three ask levels and
+    reports the volume-weighted price; the analytic curves price it from a
+    formula. A plain backtest would take the top of book and report no slippage
+    at all.
+  </p>
+
+  <p><button id="go" disabled>Measure</button></p>
+  <p id="status">Loading WASM module…</p>
+
+  <table id="models" hidden>
+    <thead><tr><th>Model</th><th>Entry price</th><th>Slippage (bps)</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <pre id="raw" hidden></pre>
+
+  <script type="module">
+    import init, { Impact, version }
+      from "../../bindings/wasm/pkg/wickra_impact_wasm.js";
+
+    const STRATEGY = {
+      spec_version: 1,
+      symbol: "IMPACT",
+      timeframe: "1h",
+      indicators: {},
+      entry: { ge: [{ price: "close" }, 0] },
+      exit: { in_position: true },
+      sizing: { type: "fixed_qty", qty: 10.0 },
+      execution: { order_type: "market", fill_timing: "next_open" },
+    };
+
+    const DATA = {
+      candles: [
+        { time: 0, open: 100, high: 100, low: 100, close: 100, volume: 1000 },
+        { time: 3600, open: 100, high: 103, low: 100, close: 102, volume: 1000 },
+      ],
+      // The order wants ten units; the top level holds three.
+      books: [
+        { bids: [{ price: 99.9, size: 100 }], asks: [{ price: 100.1, size: 100 }] },
+        {
+          bids: [{ price: 99.9, size: 100 }],
+          asks: [
+            { price: 100.1, size: 3 },
+            { price: 100.3, size: 3 },
+            { price: 100.8, size: 4 },
+          ],
+        },
+      ],
+    };
+
+    const MODELS = [
+      ["orderbook_walk", { kind: "orderbook_walk" }],
+      ["linear_impact", { kind: "linear_impact", coef: 0.1 }],
+      ["square_root", { kind: "square_root", coef: 0.5 }],
+    ];
+
+    const spec = (model) => JSON.stringify({
+      strategy: STRATEGY,
+      book_model: model,
+      participation_cap: 1.0,
+      latency_ms: 0,
+    });
+
+    const status = document.getElementById("status");
+    const go = document.getElementById("go");
+
+    function run() {
+      const rows = [];
+      const raw = {};
+      for (const [label, model] of MODELS) {
+        // A fresh handle per model: the spec is what selects the fill engine.
+        const impact = new Impact(spec(model));
+        const report = JSON.parse(
+          impact.command(JSON.stringify({ cmd: "run", data: DATA })),
+        );
+        raw[label] = report;
+        rows.push([
+          label,
+          report.report?.trades?.[0]?.entry_price ?? "—",
+          report.impact_stats?.avg_slippage_bps ?? "—",
+        ]);
+      }
+
+      const body = document.querySelector("#models tbody");
+      body.replaceChildren();
+      for (const row of rows) {
+        const tr = document.createElement("tr");
+        for (const cell of row) {
+          const td = document.createElement("td");
+          td.textContent = String(cell);
+          tr.append(td);
+        }
+        body.append(tr);
+      }
+      document.getElementById("models").hidden = false;
+
+      const pre = document.getElementById("raw");
+      pre.textContent = JSON.stringify(raw, null, 2);
+      pre.hidden = false;
+
+      status.textContent =
+        `the walk paid ${rows[0][1]} against a 100.10 top of book — ` +
+        `wickra-impact ${version()}.`;
+    }
+
+    await init();
+    status.textContent = `Module ready — wickra-impact ${version()}.`;
+    go.disabled = false;
+    go.addEventListener("click", () => {
+      try {
+        run();
+      } catch (err) {
+        status.textContent = `Error: ${err}`;
+      }
+    });
+  </script>
+</body>
+</html>

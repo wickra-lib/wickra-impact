@@ -8,6 +8,12 @@ repository.workspace = true
 authors.workspace = true
 description = "Market-impact backtester: agent-based fills on the real historical L2 order book."
 
+[package.metadata.docs.rs]
+# Document every feature so an optional surface is not missing from the
+# reference. docs.rs builds on nightly and sets the `docsrs` cfg, which is what
+# makes the feature badges appear.
+all-features = true
+
 [dependencies]
 serde = { workspace = true }
 serde_json = { workspace = true }

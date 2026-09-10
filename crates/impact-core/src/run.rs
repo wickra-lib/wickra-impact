@@ -247,9 +247,9 @@ pub fn run(data: &RunData, spec: &ImpactSpec) -> Result<ImpactReport> {
                 cross_section: None,
             };
             if let Some(v) = ind.update(&input) {
-                values.insert(name.clone(), v);
+                values.insert(std::sync::Arc::from(name.as_str()), v);
                 for (field, fv) in ind.fields() {
-                    values.insert(format!("{name}.{field}"), fv);
+                    values.insert(std::sync::Arc::from(format!("{name}.{field}").as_str()), fv);
                 }
             }
         }
@@ -399,6 +399,8 @@ pub fn run(data: &RunData, spec: &ImpactSpec) -> Result<ImpactReport> {
     let fees_paid = acc.fees;
     let report = BacktestReport {
         schema_version: REPORT_SCHEMA_VERSION,
+        symbol: spec.strategy.symbol.clone(),
+        timeframe: spec.strategy.timeframe.clone(),
         metrics: computed,
         trades: pf.trades.clone(),
         equity,

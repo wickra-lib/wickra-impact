@@ -31,6 +31,7 @@ cargo run -p impact-cli -- --request examples/data/requests/thin_book.json
 - **C#** — [`csharp/Run/`](csharp/Run/): `dotnet run --project examples/csharp/Run`
 - **Java** — [`java/`](java/): `mvn -q compile exec:java -Dexec.mainClass=org.wickra.impact.examples.Run`
 - **R** — [`r/run.R`](r/run.R): `R CMD INSTALL bindings/r && Rscript examples/r/run.R`
+- **WASM** — [`wasm/slippage.html`](wasm/slippage.html): `wasm-pack build bindings/wasm --target web`, serve the repository root, then open `examples/wasm/slippage.html`
 - **C / C++** — [`c/`](c/): build the C ABI, then CMake + ctest:
 
   ```bash

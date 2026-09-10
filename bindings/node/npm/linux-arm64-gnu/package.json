@@ -4,7 +4,9 @@
   "description": "Native binding for wickra-impact (Linux arm64 GNU). Installed automatically as an optional dependency of wickra-impact on matching platforms.",
   "main": "wickra-impact.linux-arm64-gnu.node",
   "files": [
-    "wickra-impact.linux-arm64-gnu.node"
+    "wickra-impact.linux-arm64-gnu.node",
+    "LICENSE-MIT",
+    "LICENSE-APACHE"
   ],
   "license": "MIT OR Apache-2.0",
   "engines": {

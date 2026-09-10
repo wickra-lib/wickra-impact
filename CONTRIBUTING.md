@@ -46,16 +46,24 @@ byte-identical matrix either way.
 - **Production code only** — no mocks outside `#[cfg(test)]`, no TODO stubs, and
   no defensive branches that can never run (they fail coverage).
 
-## Adding a feature or a label
+## Adding a fill model
 
 The spec is a serde struct, so extending it means adding a variant, not a
-closure. A new feature kind (`indicator` / `price` / `microstructure`) or label
-kind (`forward_return` / `triple_barrier`) is added to
-`crates/impact-core/src/spec.rs` and handled in the per-symbol fold, with
-a serde round-trip test and a golden fixture. Indicators themselves come from the
-[Wickra](https://github.com/wickra-lib/wickra) core registry by name and
-parameters — no indicator code lives here. See
-[docs/FEATURES.md](docs/FEATURES.md) and [docs/LABELS.md](docs/LABELS.md).
+closure. A new **book model** is a variant of `BookModel` in
+`crates/impact-core/src/book_model.rs`, applied in the fill stage and pinned by
+a golden fixture — a fill model that cannot be replayed byte-for-byte is not a
+measurement, and measuring slippage rather than guessing at it is the whole
+point of this repository.
+
+A model that walks the book needs a book: `orderbook_walk` refuses a run whose
+data carries none, rather than falling through to a no-op that would report zero
+slippage. Keep that property — a fill engine that silently reports no impact is
+worse than one that stops.
+
+Indicators come from the [Wickra](https://github.com/wickra-lib/wickra) core
+registry by name and parameters — no indicator code lives here. See
+[docs/IMPACT_MODELS.md](docs/IMPACT_MODELS.md) and
+[docs/BOOK_WALK.md](docs/BOOK_WALK.md).
 
 ## Developer Certificate of Origin
 

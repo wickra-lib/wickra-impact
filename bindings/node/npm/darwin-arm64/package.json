@@ -4,7 +4,9 @@
   "description": "Native binding for wickra-impact (macOS arm64). Installed automatically as an optional dependency of wickra-impact on matching platforms.",
   "main": "wickra-impact.darwin-arm64.node",
   "files": [
-    "wickra-impact.darwin-arm64.node"
+    "wickra-impact.darwin-arm64.node",
+    "LICENSE-MIT",
+    "LICENSE-APACHE"
   ],
   "license": "MIT OR Apache-2.0",
   "engines": {
