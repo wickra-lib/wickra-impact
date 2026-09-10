@@ -9,6 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Three steps of the `examples` job ran a file that is not here.** Python,
+  Node.js and R each invoked `examples/<lang>/scan.*` -- the screener's file
+  name, left over from the port -- so they died on a missing file before
+  reaching any assertion.
+
+- **Every language step asserted `"symbol":"BBB"`**, a line from the screener's
+  scan report that no example here prints. Each step now matches a string its
+  own example emits, read off the format string rather than guessed: the
+  assertions were checked against a real run of each example.
+
+- **The Rust example's lockfile pinned the pre-migration engine.** It still held
+  `wickra-core` 0.9.9 and `wickra-backtest` 0.1.0 while the workspace declares
+  1.0 and 0.1.4, so cargo silently repaired the lock on every build and the
+  example was the one reach measured against a different engine than the rest.
+
 - **The C++ example now goes through the C++ hull.** It called the C functions
   directly and rebuilt the two-call length protocol by hand -- the very thing
   `wickra_impact.hpp` exists to remove -- which left the shipped C++ surface
