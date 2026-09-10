@@ -107,9 +107,9 @@ BINDINGS: dict[str, tuple[list[str], dict[str, str]]] = {
     "r": (
         ["bindings/r/R/impact.R", "bindings/r/NAMESPACE"],
         {
-            "new": r"(?m)^wkscreen_new\s*<-\s*function",
-            "command": r"(?m)^wkscreen_command\s*<-\s*function",
-            "version": r"(?m)^wkscreen_version\s*<-\s*function",
+            "new": r"(?m)^wkimpact_new\s*<-\s*function",
+            "command": r"(?m)^wkimpact_command\s*<-\s*function",
+            "version": r"(?m)^wkimpact_version\s*<-\s*function",
         },
     ),
     # The C++ hull is a separate reach over the same header, and it is the one
