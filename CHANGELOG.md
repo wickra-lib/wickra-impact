@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Six SHA-pinned actions sat on two lines across the family**, and two of the
+  splits were inside this repository. `actions/setup-node` is pinned at the same
+  commit everywhere, but some call sites annotated it `# v6.4.0`; GitHub's tag
+  list says that commit is **v7.0.0** and v6.4.0 is a different one. Dependabot
+  reads that comment to decide what to bump, so a wrong one misdirects the tool
+  meant to keep the pin current. `Swatinem/rust-cache` ran at two commits at
+  once, the older behind a floating `# v2`. Every pin now matches what the
+  sibling repositories run, each target checked against the upstream tag list.
+
 - **The CI Java example step compiled a file that is not there.** The `examples`
   job was ported from the screener, whose Java example is a single
   `examples/java/Scan.java` built with `javac`. This repository ships a Maven
