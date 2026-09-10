@@ -1,10 +1,17 @@
 // A runnable C++ example: back-test a buy-and-hold strategy against a thin order
-// book through the wickra-impact C ABI and print the market impact.
+// book and print the market impact.
+//
+// This goes through `wickra_impact.hpp`, the C++ hull shipped beside the C
+// header, because that hull is what a C++ caller is meant to use: it owns and
+// frees the handle, runs the two-call length protocol behind
+// `wickra_impact_command` for you, and turns a refusal into an exception rather
+// than a negative integer that is easy to ignore. Calling the C functions
+// directly from C++ works too -- `run.c` shows that -- but then the hull would
+// be shipped without anything building it.
 #include <cstdio>
 #include <string>
-#include <vector>
 
-#include "wickra_impact.h"
+#include "wickra_impact.hpp"
 
 static const char *SPEC =
     "{\"strategy\":{\"spec_version\":1,\"symbol\":\"IMPACT\",\"timeframe\":\"1h\","
@@ -22,22 +29,16 @@ static const char *RUN_CMD =
     "{\"price\":100.3,\"size\":3},{\"price\":100.8,\"size\":4}]}]}}";
 
 int main() {
-    WickraImpact *impact = wickra_impact_new(SPEC);
-    if (!impact) {
-        std::fprintf(stderr, "failed to build impact\n");
+    try {
+        wickra::Impact impact(SPEC);
+        const std::string report = impact.command(RUN_CMD);
+        std::printf("wickra-impact %s\n", wickra::Impact::version().c_str());
+        std::printf("report bytes: %d\n", static_cast<int>(report.size()));
+    } catch (const wickra::ImpactError &err) {
+        // Every failure arrives here: a spec the core rejects, a command it does
+        // not know, a response that changed length between the two ABI calls.
+        std::fprintf(stderr, "%s\n", err.what());
         return 1;
     }
-    int len = wickra_impact_command(impact, RUN_CMD, nullptr, 0);
-    if (len < 0) {
-        wickra_impact_free(impact);
-        return 1;
-    }
-    std::vector<char> buf(static_cast<size_t>(len) + 1);
-    wickra_impact_command(impact, RUN_CMD, buf.data(), buf.size());
-
-    std::printf("wickra-impact %s\n", wickra_impact_version());
-    std::printf("report bytes: %d\n", len);
-
-    wickra_impact_free(impact);
     return 0;
 }
