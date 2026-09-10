@@ -6,7 +6,7 @@ open an issue first so we can agree on the approach.
 
 ## Orientation
 
-- The core — the `FeatureSpec`, the per-symbol `SymbolState` fold, the
+- The core — the `ImpactSpec`, the per-symbol `SymbolState` fold, the
   `FeatureMatrix` and the `build` / `build_batch` entry points — lives in
   `crates/impact-core`. The spec is **data, not code**: a serde struct, so
   the same feature build crosses the C ABI and WASM unchanged.

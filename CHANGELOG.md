@@ -9,6 +9,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Every C++ hull used the include guard `WICKRA_SCREENER_HPP`.** The C headers
+  beside them are guarded correctly; only the `.hpp` files shared one name, so
+  including two of the family's headers in the same translation unit dropped the
+  second silently. Proven by compiling a file that includes two of them and
+  names a class from each: `'Env' is not a member of 'wickra'`. All seven now
+  compile standalone and together.
+
+- **The hull's usage example could not run.** It showed a spec shaped
+  `{"universe":[...]}` and `{"cmd":"scan"}`, the screener's, which this core
+  rejects twice over. It now shows this repository's own spec fields and one of
+  its own commands.
+
+- **The release notes named the wrong package.** They told a reader
+  `install.packages("wickrafeaturestore")` from r-universe, where this package
+  is `wickraimpact`. These notes go out with the GitHub release: a reader
+  following them installs a different library.
+
+- **The issue and pull-request templates asked for a `FeatureSpec`**, a type
+  this repository does not have, so a contributor was asked to attach something
+  that does not exist. `GOVERNANCE.md`, `SUPPORT.md` and `CONTRIBUTING.md`
+  carried the same substitution, along with the screener's "condition schema"
+  for a core that has no conditions.
+
+- **The R `configure` scripts still defined `wkscreen_download`**, the last
+  trace of the screener's prefix — the CI-visible half of which already had to
+  be fixed once.
+
 - **Six SHA-pinned actions sat on two lines across the family**, and two of the
   splits were inside this repository. `actions/setup-node` is pinned at the same
   commit everywhere, but some call sites annotated it `# v6.4.0`; GitHub's tag

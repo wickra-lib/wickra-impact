@@ -11,15 +11,15 @@
 //
 //     #include <wickra_impact.hpp>
 //
-//     wickra::Impact handle(R"({"universe":["AAA"], ... })");
-//     std::string report = handle.command(R"({"cmd":"scan","data":{...}})");
+//     wickra::Impact impact(R"({"strategy":{...},"book_model":{"kind":"orderbook_walk"}})");
+//     std::string report = impact.command(R"({"cmd":"run","data":{...}})");
 //
 // The impact is data-driven, so this wrapper deliberately stops at strings:
 // the spec and the report are JSON, and which JSON library a caller uses is
 // their choice, not this header's.
 
-#ifndef WICKRA_SCREENER_HPP
-#define WICKRA_SCREENER_HPP
+#ifndef WICKRA_IMPACT_HPP
+#define WICKRA_IMPACT_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -37,7 +37,7 @@ class ImpactError : public std::runtime_error {
   explicit ImpactError(const std::string& what) : std::runtime_error(what) {}
 };
 
-/// An owning handle to a impact built from a scan spec.
+/// An owning handle to a impact built from a spec.
 ///
 /// Move-only, because the underlying handle is a unique resource: copying it
 /// would free the same pointer twice.
@@ -114,4 +114,4 @@ class Impact {
 
 }  // namespace wickra
 
-#endif  // WICKRA_SCREENER_HPP
+#endif  // WICKRA_IMPACT_HPP
