@@ -1,5 +1,5 @@
 [package]
-name = "impact-cli"
+name = "wickra-impact"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
@@ -19,7 +19,7 @@ path = "src/main.rs"
 all-features = true
 
 [dependencies]
-impact-core = { workspace = true }
+wickra-impact-core = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
 clap = { workspace = true }

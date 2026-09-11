@@ -1,6 +1,6 @@
 //! The wickra-impact C ABI — the hub every C-capable language links against.
 //!
-//! The surface is tiny and JSON-shaped, exactly like [`impact_core::Impact`]:
+//! The surface is tiny and JSON-shaped, exactly like [`wickra_impact_core::Impact`]:
 //! construct a handle from a spec JSON, drive it with command JSONs (`set_spec`,
 //! `set_spec`, `run`, `version`), read back response JSONs, and free the handle.
 //! No impact type crosses the boundary by value — the handle is opaque and the
@@ -18,7 +18,7 @@ use core::ffi::{c_char, CStr};
 use std::panic::{catch_unwind, AssertUnwindSafe};
 use std::ptr;
 
-use impact_core::Impact;
+use wickra_impact_core::Impact;
 
 /// A required pointer argument (`handle` or `cmd_json`) was null.
 pub const WICKRA_IMPACT_ERR_NULL: i32 = -1;

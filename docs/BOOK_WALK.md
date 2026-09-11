@@ -45,5 +45,5 @@ book would have.
 Reproduce:
 
 ```bash
-cargo run -p impact-cli -- --spec golden/specs/thin_book.json --data golden/data/thin_book.json --format text
+cargo run -p wickra-impact -- --spec golden/specs/thin_book.json --data golden/data/thin_book.json --format text
 ```

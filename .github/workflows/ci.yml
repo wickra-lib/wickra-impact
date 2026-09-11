@@ -123,7 +123,7 @@ jobs:
           persist-credentials: false
       - uses: ./.github/actions/setup-rust
       - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
-      - run: cargo build -p impact-cli
+      - run: cargo build -p wickra-impact
       # Run a golden spec against its order book in both output formats. The JSON
       # output must carry the `impact_stats` block; the text output must report
       # the `market impact` section.
@@ -460,11 +460,11 @@ jobs:
         uses: taiki-e/install-action@e67fa11c4b9316fa714ddf0abed07a0c3143b95b # v2.87.4
         with:
           tool: cargo-llvm-cov
-      # The determinism moat lives in impact-core: the fold, the label
+      # The determinism moat lives in wickra-impact-core: the fold, the label
       # formulas, canonical serialization and scaling. Measure it in isolation so
       # patch coverage tracks the core.
       - name: Generate coverage (lcov)
-        run: cargo llvm-cov -p impact-core --all-features --lcov --output-path lcov.info
+        run: cargo llvm-cov -p wickra-impact-core --all-features --lcov --output-path lcov.info
       - name: Upload to Codecov
         uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
         with:
@@ -603,7 +603,7 @@ jobs:
         run: |
           set -euo pipefail
           published=()
-          for crate in impact-core wickra-impact; do
+          for crate in wickra-impact-core wickra-impact; do
             code=$(curl -sS -o /dev/null -w "%{http_code}" \
               -H "User-Agent: wickra-impact-ci" \
               "https://crates.io/api/v1/crates/$crate")

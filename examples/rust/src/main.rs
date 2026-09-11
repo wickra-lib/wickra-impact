@@ -7,7 +7,7 @@
 //! cargo run --manifest-path examples/rust/Cargo.toml
 //! ```
 
-use impact_core::Impact;
+use wickra_impact_core::Impact;
 
 const SPEC: &str = r#"{
     "strategy": {
@@ -38,7 +38,7 @@ fn main() {
     let report: serde_json::Value =
         serde_json::from_str(&impact.command_json(RUN_CMD).expect("run")).unwrap();
 
-    println!("wickra-impact {}", impact_core::version());
+    println!("wickra-impact {}", wickra_impact_core::version());
     println!(
         "avg slippage: {} bps",
         report["impact_stats"]["avg_slippage_bps"]

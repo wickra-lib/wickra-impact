@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **The two published crates carried names the release could not upload.**
+  `impact-core` and `impact-cli` are outside the org's crates.io token scope,
+  which creates new crates under the `wickra-` prefix only; `cargo publish` on
+  either name returns 403 at upload while `--dry-run` passes, and because the
+  publish jobs run in parallel the release would have landed on PyPI, npm,
+  NuGet, Maven Central and the Go mirror without ever reaching crates.io.
+  `release.yml` already published `-p wickra-impact`, a package that did not
+  exist. The core is now `wickra-impact-core` and the CLI crate
+  `wickra-impact`, matching the binary it ships and the shape of every
+  released sibling. Directories keep their names; only the packages and the
+  `wickra_impact_core` path moved. The same audit ran across the family (xray
+  paid for this with its first tag).
+
 - **The `latency` golden case proved nothing.** It carried the same two-bar
   dataset as every other spec, and `fill_timing: next_open` plus `ceil(1000 /
   3_600_000)` = one bar put the fill on bar 2 of a two-bar history -- so the
@@ -120,10 +133,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   project name from another repository; `pip` did not cover
   `/.github/requirements` and `npm` did not cover `/examples/node`.
 
-- **The workspace's own core was pinned as a range.** `impact-core` was named
+- **The workspace's own core was pinned as a range.** `wickra-impact-core` was named
   six times as `version = "0.1"` -- a caret range -- and the root manifest
   carried no `[workspace.dependencies]` entry for it at all. A published
-  `impact-cli` 0.1.0 would have accepted `impact-core` 0.1.99, a crate resolving
+  `wickra-impact` 0.1.0 would have accepted `wickra-impact-core` 0.1.99, a crate resolving
   against a core it was never built against, in a workspace whose whole point is
   that the pieces move together. It also hid the line from `bump_version.py` and
   `check_version_sync.py`, both of which look for the exact version.
@@ -209,10 +222,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Repository scaffold: governance, supply-chain configuration (`deny.toml`,
   `lychee.toml`, `osv-scanner.toml`, `repo-metadata.toml`), the Rust workspace
-  (`impact-core`, `impact-cli`, `impact-bench`) with the language-binding crates,
+  (`wickra-impact-core`, `wickra-impact`, `impact-bench`) with the language-binding crates,
   and the `wickra-backtest` / `wickra-exchange` git dependencies (the engine
   IMPACT inherits and the historical L2 order books it walks).
-- `impact-core`: the market-impact engine — the `BookModel` fill engine
+- `wickra-impact-core`: the market-impact engine — the `BookModel` fill engine
   (order-book walk, linear and square-root impact), the `ImpactSpec` envelope over
   an embedded `wickra-backtest` strategy, latency-to-snapshot mapping, and the
   `run` loop that reconstructs the inherited `BacktestReport` with real order-book

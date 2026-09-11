@@ -3,8 +3,8 @@
 //! is rejected, a missing book for `orderbook_walk` is a run error, and an embedded
 //! `costs.slippage` is a spec error (IMPACT owns the fill stage).
 
-use impact_core::book_model::Fill;
-use impact_core::{run, BookModel, ImpactSpec, ImpactStats, RunData, Side};
+use wickra_impact_core::book_model::Fill;
+use wickra_impact_core::{run, BookModel, ImpactSpec, ImpactStats, RunData, Side};
 
 fn json_round_trip<T>(value: &T)
 where

@@ -14,7 +14,7 @@
 //! same strategy, a latency that spans a bar moves the fill onto a later book,
 //! and the entry price says so.
 
-use impact_core::{run, Candle, ImpactSpec, Level, OrderBook, RunData};
+use wickra_impact_core::{run, Candle, ImpactSpec, Level, OrderBook, RunData};
 
 /// Four bars whose books step up sharply at bar 2.
 fn data() -> RunData {

@@ -35,7 +35,7 @@ walks your order through the actual recorded L2 order book — eating liquidity
 level by level — so the fill price is what the market would really have given you,
 impact included.
 
-Impact is one library, `impact-core`: it **inherits the `wickra-backtest` engine
+Impact is one library, `wickra-impact-core`: it **inherits the `wickra-backtest` engine
 1:1** (its `StrategySpec`, `RunRequest` and `BacktestReport`) and replaces **only
 the fill stage** with an order-book-walk fill engine. It is usable in **Rust,
 Python, Node.js, WASM, C, C++, C#, Go, Java and R** over a JSON-over-C-ABI
@@ -53,7 +53,7 @@ boundary (`command_json`), plus a reference CLI.
 > CI matrix are all in place; the first published release is still pending.
 
 ```rust
-use impact_core::{run, ImpactSpec, RunData};
+use wickra_impact_core::{run, ImpactSpec, RunData};
 
 // The moat: walk the order the strategy sent across the real historical book
 // and report the price it actually paid, not the one it hoped for.
@@ -96,7 +96,7 @@ Run the `thin_book` worked example — a buy-and-hold order that lifts a thin as
 ladder — through the CLI:
 
 ```bash
-cargo run -p impact-cli -- --request examples/data/requests/thin_book.json
+cargo run -p wickra-impact -- --request examples/data/requests/thin_book.json
 ```
 
 ```

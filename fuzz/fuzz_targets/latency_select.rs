@@ -4,7 +4,7 @@
 //! the snapshot-index selection is exercised over bounded parameters. The index,
 //! when returned, must always be a valid bar.
 
-use impact_core::latency::{bar_ms, snapshot_index};
+use wickra_impact_core::latency::{bar_ms, snapshot_index};
 use libfuzzer_sys::fuzz_target;
 
 fuzz_target!(|data: &[u8]| {

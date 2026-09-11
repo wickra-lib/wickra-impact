@@ -7,7 +7,7 @@
 use std::fs;
 use std::path::PathBuf;
 
-use impact_core::{run, ImpactSpec, RunData};
+use wickra_impact_core::{run, ImpactSpec, RunData};
 
 fn golden_dir() -> PathBuf {
     PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../golden")

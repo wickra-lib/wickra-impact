@@ -8,7 +8,7 @@ Recipes for common Wickra Impact runs. Every recipe drives the same
 Pair an `orderbook_walk` spec with a `RunData` that carries per-bar `books`:
 
 ```bash
-cargo run -p impact-cli -- --spec golden/specs/thin_book.json --data golden/data/thin_book.json --format text
+cargo run -p wickra-impact -- --spec golden/specs/thin_book.json --data golden/data/thin_book.json --format text
 ```
 
 The `market impact` block reports the average slippage, the liquidity consumed and
@@ -64,7 +64,7 @@ After an intended change to the fill engine or report shape, regenerate the fixe
 `golden/expected/*.json` and review the diff:
 
 ```bash
-cargo build -p impact-cli --release
+cargo build -p wickra-impact --release
 for name in thin_book thin_book_capped deep_book linear_impact square_root latency; do
   target/release/wickra-impact --spec golden/specs/$name.json \
     --data golden/data/$name.json --format json > golden/expected/$name.json

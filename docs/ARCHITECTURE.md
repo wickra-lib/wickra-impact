@@ -7,14 +7,14 @@ changes one thing — how orders fill — and inherits everything else.
 
 | Crate           | Role |
 |-----------------|------|
-| `impact-core`   | The library: the `BookModel` fill engine, the `ImpactSpec` envelope, latency mapping, the `run` loop, and the `Impact` JSON-command handle. |
-| `impact-cli`    | `wickra-impact`, the reference CLI (`--request` / `--spec`+`--data` / `--stdin`, `--format text\|json`). |
+| `wickra-impact-core`   | The library: the `BookModel` fill engine, the `ImpactSpec` envelope, latency mapping, the `run` loop, and the `Impact` JSON-command handle. |
+| `wickra-impact`    | `wickra-impact`, the reference CLI (`--request` / `--spec`+`--data` / `--stdin`, `--format text\|json`). |
 | `impact-bench`  | Criterion benchmarks for `run`. |
 | `bindings/*`    | The ten language bindings (Python, Node.js, WASM native; C, C++, C#, Go, Java, R over the C ABI hub). |
 
 ## The inheritance boundary
 
-`impact-core` depends on `wickra-backtest` (a git dependency) and reuses its
+`wickra-impact-core` depends on `wickra-backtest` (a git dependency) and reuses its
 **public** building blocks directly: `rules::eval_condition` for signals,
 `registry::build` / `EvalIndicator` for indicators, `Portfolio` for position and
 cash accounting, and `metrics::compute` for the result metrics. The engine offers

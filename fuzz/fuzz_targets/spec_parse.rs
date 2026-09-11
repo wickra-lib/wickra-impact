@@ -3,7 +3,7 @@
 //! (JSON). Malformed input must surface as a clean `Err`, never a panic. A
 //! successfully parsed spec re-serializes and re-parses to an equal value.
 
-use impact_core::ImpactSpec;
+use wickra_impact_core::ImpactSpec;
 use libfuzzer_sys::fuzz_target;
 
 fuzz_target!(|data: &[u8]| {
