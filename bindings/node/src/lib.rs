@@ -8,7 +8,7 @@ use napi_derive::napi;
 
 /// A market-impact backtest driven by JSON commands.
 #[napi]
-pub struct Impact(impact_core::Impact);
+pub struct Impact(wickra_impact_core::Impact);
 
 #[napi]
 impl Impact {
@@ -17,7 +17,7 @@ impl Impact {
     #[napi(constructor)]
     #[allow(clippy::needless_pass_by_value)]
     pub fn new(spec_json: String) -> napi::Result<Self> {
-        impact_core::Impact::new(&spec_json)
+        wickra_impact_core::Impact::new(&spec_json)
             .map(Impact)
             .map_err(|e| napi::Error::from_reason(e.to_string()))
     }
@@ -35,6 +35,6 @@ impl Impact {
     /// The crate version.
     #[napi]
     pub fn version(&self) -> &'static str {
-        impact_core::version()
+        wickra_impact_core::version()
     }
 }

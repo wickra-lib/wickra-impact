@@ -11,7 +11,7 @@
 //! "no book". So the refusal is the behaviour under test, not an edge case
 //! beside it.
 
-use impact_core::{run, Candle, ImpactSpec, RunData};
+use wickra_impact_core::{run, Candle, ImpactSpec, RunData};
 
 const BARS: usize = 60;
 

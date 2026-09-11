@@ -1,9 +1,9 @@
 //! Load a request, run the impact backtest and render the result.
 
 use crate::args::{Args, Format};
-use impact_core::{run, ImpactReport, ImpactSpec, RunData};
 use serde::Deserialize;
 use std::io::Read;
+use wickra_impact_core::{run, ImpactReport, ImpactSpec, RunData};
 
 /// A request bundle: the spec plus the run data.
 #[derive(Deserialize)]

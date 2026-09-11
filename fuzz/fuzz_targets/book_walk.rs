@@ -3,8 +3,8 @@
 //! book (bid/ask ladders) drive `book_model::fill`. No input may panic and every
 //! output must be finite with conserved, non-negative quantities.
 
-use impact_core::book_model::fill;
-use impact_core::{BookModel, Level, OrderBook, Side};
+use wickra_impact_core::book_model::fill;
+use wickra_impact_core::{BookModel, Level, OrderBook, Side};
 use libfuzzer_sys::fuzz_target;
 use serde::Deserialize;
 

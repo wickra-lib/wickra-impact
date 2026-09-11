@@ -13,7 +13,7 @@
 use pyo3::exceptions::{PyRuntimeError, PyValueError};
 use pyo3::prelude::*;
 
-use impact_core::Impact;
+use wickra_impact_core::Impact;
 
 /// A market-impact backtest driven by JSON commands.
 ///
@@ -45,7 +45,7 @@ impl PyImpact {
     /// The library version.
     #[staticmethod]
     fn version() -> &'static str {
-        impact_core::version()
+        wickra_impact_core::version()
     }
 }
 

@@ -44,7 +44,7 @@ Regenerate every `expected/*.json` from the current core (run after any
 intentional change to the fill engine or report shape, and review the diff):
 
 ```bash
-cargo build -p impact-cli --release
+cargo build -p wickra-impact --release
 for name in thin_book thin_book_capped deep_book linear_impact square_root latency; do
   target/release/wickra-impact --spec golden/specs/$name.json \
     --data golden/data/$name.json --format json > golden/expected/$name.json

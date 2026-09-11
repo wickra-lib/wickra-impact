@@ -40,16 +40,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "91622ff5e7162018101f2fea40d6ebf4a78bbe5a49736a2020649edf9693679e"
 
 [[package]]
-name = "impact-core"
-version = "0.1.0"
-dependencies = [
- "serde",
- "serde_json",
- "thiserror",
- "wickra-backtest",
-]
-
-[[package]]
 name = "itoa"
 version = "1.0.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -259,11 +249,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "wickra-impact-core"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "thiserror",
+ "wickra-backtest",
+]
+
+[[package]]
 name = "wickra-impact-example"
 version = "0.1.0"
 dependencies = [
- "impact-core",
  "serde_json",
+ "wickra-impact-core",
 ]
 
 [[package]]

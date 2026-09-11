@@ -11,7 +11,7 @@
 
 use wasm_bindgen::prelude::*;
 
-use impact_core::Impact as CoreImpact;
+use wickra_impact_core::Impact as CoreImpact;
 
 /// A market-impact backtest driven by JSON commands.
 #[wasm_bindgen]
@@ -40,12 +40,12 @@ impl Impact {
     /// The library version.
     #[wasm_bindgen(js_name = version)]
     pub fn instance_version(&self) -> String {
-        impact_core::version().to_string()
+        wickra_impact_core::version().to_string()
     }
 }
 
 /// The library version.
 #[wasm_bindgen]
 pub fn version() -> String {
-    impact_core::version().to_string()
+    wickra_impact_core::version().to_string()
 }

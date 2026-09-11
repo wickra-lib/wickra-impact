@@ -19,7 +19,7 @@ The canonical spec and the request bundle are also in [`data/`](data/) for the
 CLI:
 
 ```bash
-cargo run -p impact-cli -- --request examples/data/requests/thin_book.json
+cargo run -p wickra-impact -- --request examples/data/requests/thin_book.json
 ```
 
 ## Per language

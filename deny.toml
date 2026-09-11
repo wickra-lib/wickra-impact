@@ -52,7 +52,7 @@ skip = [
     { crate = "r-efi" },
 ]
 wildcards = "deny"
-# Internal path dependencies (the binding crates depend on impact-core by path)
+# Internal path dependencies (the binding crates depend on wickra-impact-core by path)
 # carry an explicit version, so they are not wildcard paths.
 
 [sources]

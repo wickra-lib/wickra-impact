@@ -4,7 +4,7 @@
 //! candle + book universe. No input may panic; a domain error comes back in-band
 //! as JSON.
 
-use impact_core::{Impact, ImpactSpec};
+use wickra_impact_core::{Impact, ImpactSpec};
 use libfuzzer_sys::fuzz_target;
 
 // A fixed two-bar universe so the fuzzer varies the spec, not the data.

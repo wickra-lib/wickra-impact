@@ -2,9 +2,9 @@
 //! fill never panics, conserves quantity, produces finite non-negative outputs,
 //! and is monotone in the desired quantity (buying more never fills cheaper).
 
-use impact_core::book_model::fill;
-use impact_core::{BookModel, Level, OrderBook, Side};
 use proptest::prelude::*;
+use wickra_impact_core::book_model::fill;
+use wickra_impact_core::{BookModel, Level, OrderBook, Side};
 
 /// A strategy for an ascending ask ladder: `n` levels of positive price and size,
 /// prices strictly increasing from a positive base.

@@ -1,5 +1,5 @@
 #![allow(clippy::cast_precision_loss)]
-//! Criterion benchmarks for `impact_core::run`.
+//! Criterion benchmarks for `wickra_impact_core::run`.
 //!
 //! The default build measures the parallel-capable engine; `--no-default-features`
 //! measures the single-threaded path (what WASM and the golden fixtures use).
@@ -8,9 +8,9 @@
 //! in bars/second.
 
 use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
-use impact_core::{run, BookModel, ImpactSpec, RunData};
 use wickra_backtest::core::data::{Level, OrderBook};
 use wickra_backtest::Candle;
+use wickra_impact_core::{run, BookModel, ImpactSpec, RunData};
 
 fn candles(n: usize) -> Vec<Candle> {
     (0..n)

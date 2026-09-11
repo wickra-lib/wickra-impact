@@ -14,7 +14,7 @@ cargo bench -p impact-bench --no-default-features   # single-threaded (WASM) pat
 
 ## Measured (reference run)
 
-`impact_core::run` over a buy-and-hold strategy that fills one order per bar
+`wickra_impact_core::run` over a buy-and-hold strategy that fills one order per bar
 against a five-level book, criterion, release build. Throughput is bars/second.
 
 | Book model       | 1,000 bars      | 10,000 bars     |
