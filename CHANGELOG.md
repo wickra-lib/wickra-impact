@@ -25,6 +25,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   autobuild. osv-scanner runs with `--no-resolve`, since the Java example's
   dependency on the unpublished org.wickra artefact cannot be resolved from
   Maven Central until the release exists.
+- **The Maven Central publish is idempotent, and waits as long as Central
+  takes.** A sibling's first release deployed successfully and still went red:
+  Central published after the plugin's default 30-minute wait had expired,
+  and a rerun could only fail on the duplicate. The release workflow now skips
+  a version already on Central, the plugin waits up to two hours
+  (`waitMaxTime`), and the job has the budget for it.
+- **The engine pins are exact** (`wickra-backtest = "=0.1.4"`, and the
+  exchange client where it is used), as the released siblings pin them, so a
+  newer patch on one side cannot leave two copies of the engine in one graph.
+- zizmor's `self-repository` note is a documented policy (`.github/zizmor.yml`)
+  rather than an open alert per workflow; uv 0.12.13 for the lockfile script.
 - **The two published crates carried names the release could not upload.**
   `impact-core` and `impact-cli` are outside the org's crates.io token scope,
   which creates new crates under the `wickra-` prefix only; `cargo publish` on
