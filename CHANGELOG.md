@@ -36,6 +36,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   newer patch on one side cannot leave two copies of the engine in one graph.
 - zizmor's `self-repository` note is a documented policy (`.github/zizmor.yml`)
   rather than an open alert per workflow; uv 0.12.13 for the lockfile script.
+- **The Python 3.9 CI row runs without pytest.** pytest 9.x requires 3.10,
+  so that row could only pin 8.4.2, below the fix for GHSA-6w46-j5rx-g56g
+  with no backport. The 3.9 lock carries maturin only, and the row runs the
+  same test modules through `bindings/python/tests/run_without_pytest.py`
+  (plain functions, plain asserts); 3.10 and up run them under pytest as
+  before.
 - **The two published crates carried names the release could not upload.**
   `impact-core` and `impact-cli` are outside the org's crates.io token scope,
   which creates new crates under the `wickra-` prefix only; `cargo publish` on
