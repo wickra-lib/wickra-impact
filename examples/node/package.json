@@ -5,5 +5,5 @@
   "description": "A runnable Node.js example for wickra-impact.",
   "type": "commonjs",
   "scripts": { "start": "node run.js" },
-  "dependencies": { "wickra-impact": "^0.1.0" }
+  "dependencies": { "wickra-impact": "file:../../bindings/node" }
 }

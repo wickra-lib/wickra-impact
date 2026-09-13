@@ -9,6 +9,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **A timeframe count that overflows `u64` panicked instead of being
+  rejected.** `bar_ms` multiplied the parsed count by the unit's
+  milliseconds unchecked; the fuzzer found it (`attempt to multiply with
+  overflow`). It is a `BadSpec` error now, with a regression test.
+- **CI is green again.** The napi glue (`bindings/node/index.js`) was stale
+  against the locked CLI, so the in-sync check failed on every Node job; it
+  is regenerated. A test compared an `f64` with `assert_eq!` (clippy
+  `float_cmp`). The Examples job ran `cargo run -p wickra-impact-example`
+  against a crate that is not a workspace member, pointed `dotnet run` at a
+  project directory that does not exist, and the Node and C# examples
+  depended on the npm and NuGet packages, which are not published yet: the
+  Rust example runs by manifest path, the C# one is `Run`, and both examples
+  reference the binding in this checkout, which also un-breaks CodeQL's C#
+  autobuild. osv-scanner runs with `--no-resolve`, since the Java example's
+  dependency on the unpublished org.wickra artefact cannot be resolved from
+  Maven Central until the release exists.
+- **The Maven Central publish is idempotent, and waits as long as Central
+  takes.** A sibling's first release deployed successfully and still went red:
+  Central published after the plugin's default 30-minute wait had expired,
+  and a rerun could only fail on the duplicate. The release workflow now skips
+  a version already on Central, the plugin waits up to two hours
+  (`waitMaxTime`), and the job has the budget for it.
+- **The engine pins are exact** (`wickra-backtest = "=0.1.4"`, and the
+  exchange client where it is used), as the released siblings pin them, so a
+  newer patch on one side cannot leave two copies of the engine in one graph.
+- zizmor's `self-repository` note is a documented policy (`.github/zizmor.yml`)
+  rather than an open alert per workflow; uv 0.12.13 for the lockfile script.
+- **The Python 3.9 CI row runs without pytest.** pytest 9.x requires 3.10,
+  so that row could only pin 8.4.2, below the fix for GHSA-6w46-j5rx-g56g
+  with no backport. The 3.9 lock carries maturin only, and the row runs the
+  same test modules through `bindings/python/tests/run_without_pytest.py`
+  (plain functions, plain asserts); 3.10 and up run them under pytest as
+  before.
+- **The R package builds for WebAssembly on r-universe.** `configure`
+  refused the wasm target outright, which would have left the `wasm-release`
+  job red on every build. The r-universe wasm image ships cargo and
+  emscripten, so `configure` now builds the C ABI staticlib from the release
+  tag's source for `wasm32-unknown-emscripten` right there and links it into
+  the package object, the way the released siblings do.
+- **The exported R functions are documented.** `wkimpact_new`, `wkimpact_command`
+  and `wkimpact_version` carried roxygen comments but no generated `man/` pages,
+  which `R CMD check` reports as a WARNING on every platform.
 - **The two published crates carried names the release could not upload.**
   `impact-core` and `impact-cli` are outside the org's crates.io token scope,
   which creates new crates under the `wickra-` prefix only; `cargo publish` on

@@ -15,4 +15,4 @@ Encoding: UTF-8
 NeedsCompilation: yes
 SystemRequirements: the wickra-impact C ABI shared library (WKIMPACT_LIB)
     and its header (WKIMPACT_INC).
-RoxygenNote: 7.3.2
+Config/roxygen2/version: 8.0.0

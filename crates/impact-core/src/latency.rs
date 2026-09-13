@@ -30,7 +30,8 @@ pub fn bar_ms(timeframe: &str) -> Result<u64> {
         "w" => 604_800_000,
         _ => return Err(Error::BadSpec(format!("timeframe bad unit: {tf}"))),
     };
-    Ok(n * unit_ms)
+    n.checked_mul(unit_ms)
+        .ok_or_else(|| Error::BadSpec(format!("timeframe too long: {tf}")))
 }
 
 /// The bar index whose order book a signalled order fills against. `next_open`
@@ -75,6 +76,9 @@ mod tests {
         assert!(bar_ms("h").is_err());
         assert!(bar_ms("0h").is_err());
         assert!(bar_ms("abc").is_err());
+        // A count that overflows u64 when scaled to milliseconds is a bad
+        // spec, not a panic (the fuzzer found the multiplication).
+        assert!(bar_ms("99999999999999999w").is_err());
     }
 
     #[test]
