@@ -8,6 +8,8 @@ abstract: >-
   it from an analytic impact curve, so the reported slippage is measured rather
   than assumed. Exposed as a JSON-over-C-ABI data API in ten languages.
 type: software
+version: "0.1.0"
+date-released: "2026-09-14"
 authors:
   - alias: kingchenc
     website: "https://wickra.org"

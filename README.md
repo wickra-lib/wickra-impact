@@ -48,9 +48,9 @@ boundary (`command_json`), plus a reference CLI.
 > [wickra-verify](https://github.com/wickra-lib/wickra-verify) and 20 more — see
 > [the full list](https://github.com/wickra-lib).
 
-> **Status:** early development (0.1.0, unreleased). The fill engine, the
+> **Status:** early development (0.1.0). The fill engine, the
 > reference CLI, the ten-language binding surface, the golden corpus and the full
-> CI matrix are all in place; the first published release is still pending.
+> CI matrix are all in place; 0.1.0 is the first published release.
 
 ```rust
 use wickra_impact_core::{run, ImpactSpec, RunData};
