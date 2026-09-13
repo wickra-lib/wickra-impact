@@ -9,7 +9,6 @@ reporting an issue.
 | Version | Supported |
 |---------|-----------|
 | 0.1.0 (latest) | ✅ |
-| < 0.1.0 | ❌ |
 
 ## Reporting a vulnerability
 
