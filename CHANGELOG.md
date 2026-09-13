@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-09-14
+
 ### Fixed
 
 - **A timeframe count that overflows `u64` panicked instead of being
@@ -296,4 +298,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   cargo-deny, fuzz-smoke, header-drift, CodeQL, Scorecard, zizmor, links,
   nightly bench) and a tag-gated, USER-GO release pipeline.
 
-[Unreleased]: https://github.com/wickra-lib/wickra-impact/commits/main
+[Unreleased]: https://github.com/wickra-lib/wickra-impact/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/wickra-lib/wickra-impact/releases/tag/v0.1.0
