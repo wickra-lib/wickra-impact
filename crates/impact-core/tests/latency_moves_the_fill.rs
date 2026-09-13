@@ -118,8 +118,8 @@ fn a_latency_past_the_end_of_the_history_cancels_the_order() {
         report.report.trades.is_empty(),
         "an order delayed past the recorded history cannot fill"
     );
-    assert_eq!(
-        report.impact_stats.avg_slippage_bps, 0.0,
+    assert!(
+        report.impact_stats.avg_slippage_bps.abs() < f64::EPSILON,
         "and it consumes no liquidity on the way out"
     );
 }

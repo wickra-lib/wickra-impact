@@ -9,6 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **A timeframe count that overflows `u64` panicked instead of being
+  rejected.** `bar_ms` multiplied the parsed count by the unit's
+  milliseconds unchecked; the fuzzer found it (`attempt to multiply with
+  overflow`). It is a `BadSpec` error now, with a regression test.
+- **CI is green again.** The napi glue (`bindings/node/index.js`) was stale
+  against the locked CLI, so the in-sync check failed on every Node job; it
+  is regenerated. A test compared an `f64` with `assert_eq!` (clippy
+  `float_cmp`). The Examples job ran `cargo run -p wickra-impact-example`
+  against a crate that is not a workspace member, pointed `dotnet run` at a
+  project directory that does not exist, and the Node and C# examples
+  depended on the npm and NuGet packages, which are not published yet: the
+  Rust example runs by manifest path, the C# one is `Run`, and both examples
+  reference the binding in this checkout, which also un-breaks CodeQL's C#
+  autobuild. osv-scanner runs with `--no-resolve`, since the Java example's
+  dependency on the unpublished org.wickra artefact cannot be resolved from
+  Maven Central until the release exists.
 - **The two published crates carried names the release could not upload.**
   `impact-core` and `impact-cli` are outside the org's crates.io token scope,
   which creates new crates under the `wickra-` prefix only; `cargo publish` on
