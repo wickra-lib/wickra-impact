@@ -42,6 +42,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   same test modules through `bindings/python/tests/run_without_pytest.py`
   (plain functions, plain asserts); 3.10 and up run them under pytest as
   before.
+- **The R package builds for WebAssembly on r-universe.** `configure`
+  refused the wasm target outright, which would have left the `wasm-release`
+  job red on every build. The r-universe wasm image ships cargo and
+  emscripten, so `configure` now builds the C ABI staticlib from the release
+  tag's source for `wasm32-unknown-emscripten` right there and links it into
+  the package object, the way the released siblings do.
+- **The exported R functions are documented.** `wkimpact_new`, `wkimpact_command`
+  and `wkimpact_version` carried roxygen comments but no generated `man/` pages,
+  which `R CMD check` reports as a WARNING on every platform.
 - **The two published crates carried names the release could not upload.**
   `impact-core` and `impact-cli` are outside the org's crates.io token scope,
   which creates new crates under the `wickra-` prefix only; `cargo publish` on
