@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.wickra.examples</groupId>
   <artifactId>wickra-impact-example</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
   <packaging>jar</packaging>
   <properties>
     <!-- The built C ABI library; override with -Dnative.lib.dir=... -->
@@ -17,7 +17,7 @@
     <dependency>
       <groupId>org.wickra</groupId>
       <artifactId>wickra-impact</artifactId>
-      <version>0.1.0</version>
+      <version>0.1.1</version>
     </dependency>
   </dependencies>
 
