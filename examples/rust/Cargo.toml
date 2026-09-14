@@ -1,17 +1,19 @@
 [package]
 name = "wickra-impact-example"
 description = "A runnable Rust example for the Wickra Impact market-impact backtester."
-version = "0.1.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
 publish = false
 
-# Detached from the parent workspace so the example builds on its own.
-[workspace]
+[lints]
+workspace = true
 
 [[bin]]
 name = "run"
 path = "src/main.rs"
 
 [dependencies]
-wickra-impact-core = { path = "../../crates/impact-core", default-features = false }
-serde_json = "1"
+wickra-impact-core = { workspace = true }
+serde_json = { workspace = true }

@@ -2723,6 +2723,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "wickra-impact-example"
+version = "0.1.0"
+dependencies = [
+ "serde_json",
+ "wickra-impact-core",
+]
+
+[[package]]
 name = "wickra-impact-node"
 version = "0.1.0"
 dependencies = [
