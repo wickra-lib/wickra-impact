@@ -5,7 +5,7 @@ Runnable examples in every Wickra Impact language. Each one runs the same
 prints the same summary, the market impact a naive backtest never sees:
 
 ```
-wickra-impact 0.1.1
+wickra-impact 0.1.2
 avg slippage: 44.0 bps
 entry price: 100.44
 ```
