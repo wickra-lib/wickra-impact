@@ -25,3 +25,10 @@ examples/c/build/
 examples/java/target/
 examples/csharp/**/bin/
 examples/csharp/**/obj/
+# Staged into src/ by configure at build time; never committed.
+bindings/r/src/wickra_impact.h
+bindings/r/src/libwickra_impact*
+bindings/r/src/wickra_impact_abi.def
+bindings/r/src/wickra-impact-c*
+bindings/r/src/Makevars
+bindings/r/src/symbols.rds
