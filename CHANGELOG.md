@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- The release workflow uploads the Java jar the provenance job attests. The
+  first release published every registry but ended with nothing to attest for
+  Java: the Maven job never uploaded a `java-jar` artifact.
+- `examples/rust` is a workspace member. It was detached with its own
+  `Cargo.lock` that nothing refreshed, so scanners saw a second, older resolve
+  beside the root lock.
+
 ## [0.1.0] - 2026-09-14
 
 ### Fixed

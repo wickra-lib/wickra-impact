@@ -11,6 +11,7 @@ members = [
     "bindings/node",
     "bindings/wasm",
     "bindings/c",
+    "examples/rust",
 ]
 
 [workspace.package]
