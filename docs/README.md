@@ -31,3 +31,11 @@ Elsewhere in the repository:
 - [`../golden/README.md`](../golden/README.md) — the cross-language corpus and how to re-bless it
 - [`../CONTRIBUTING.md`](../CONTRIBUTING.md) — how to build, test and propose a change
 - [`../THREAT_MODEL.md`](../THREAT_MODEL.md) — what the engine does and does not touch
+
+## Editing the docs
+
+The documentation site is a separate git repository at
+`https://github.com/wickra-lib/wickra-impact-site`. Open a pull request there to
+propose changes; the site is built with VitePress and deploys to
+`impact.wickra.org`. The files in this directory change in the same commit as
+the code they describe.

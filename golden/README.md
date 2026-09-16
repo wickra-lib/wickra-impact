@@ -1,4 +1,4 @@
-# Golden corpus
+# Golden fixtures
 
 The generate-once / replay-everywhere fixtures that pin Wickra Impact's
 determinism: for every `specs/<name>.json` paired with `data/<name>.json`, the
