@@ -4,6 +4,18 @@ Runnable examples in every Wickra Impact language. Each one runs the same
 `thin_book` request — a buy-and-hold order that lifts a thin ask ladder — and
 prints the same summary, the market impact a naive backtest never sees:
 
+## What every example prints
+
+Runnable examples in every Wickra Impact language. Each one runs the same
+`thin_book` request — a buy-and-hold order that lifts a thin ask ladder — and
+prints the same summary, the market impact a naive backtest never sees:
+
+```
+wickra-impact 0.1.2
+avg slippage: 44.0 bps
+entry price: 100.44
+```
+
 ## Rust — `examples/rust/`
 
 As the CI examples job runs it, from the repository root:
