@@ -37,7 +37,7 @@ The output lands in `pkg/`.
 ## Quick start
 
 ```js
-import init, { Impact } from "./pkg/wickra_impact_wasm.js";
+import init, { Impact } from "wickra-impact-wasm";
 
 await init();
 

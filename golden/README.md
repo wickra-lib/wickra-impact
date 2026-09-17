@@ -38,7 +38,7 @@ authored L2 ladders — a thin ask ladder for `thin_book` (sizes `3 / 3 / 4` at
 `100.1 / 100.3 / 100.8`), a deep ladder (`1000` at the inside) for `deep_book`.
 The numbers are fixed, not sampled: the corpus must be reproducible bit-for-bit.
 
-## Bless command
+## Blessing
 
 Regenerate every `expected/*.json` from the current core (run after any
 intentional change to the fill engine or report shape, and review the diff):
