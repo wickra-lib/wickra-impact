@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://wickra.org"><img src="https://raw.githubusercontent.com/wickra-lib/.github/main/profile/wickra-banner.webp?v=514" alt="Wickra Impact — the backtester that knows you would have moved the market" width="100%"></a>
+  <a href="https://wickra.org"><img src="https://raw.githubusercontent.com/wickra-lib/.github/main/profile/wickra-banner.webp?v=514-7" alt="Wickra Impact — the backtester that knows you would have moved the market" width="100%"></a>
 </p>
 
 [![Built on Wickra](https://img.shields.io/badge/built%20on-wickra-3b82f6)](https://github.com/wickra-lib/wickra)
@@ -19,12 +19,10 @@
 [![OpenSSF Scorecard](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/scorecard.svg)](https://scorecard.dev/viewer/?uri=github.com/wickra-lib/wickra-impact)
 [![OpenSSF Best Practices](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/best-practices.svg)](https://www.bestpractices.dev)
 [![Build provenance](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/provenance.svg)](https://github.com/wickra-lib/wickra-impact/attestations)
-[![Docs](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/docs.svg)](https://wickra.org)
+[![Docs](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/docs.svg)](https://impact.wickra.org)
 [![Verified across 10 languages](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/verified.svg)](golden/)
 
 ---
-
-# Wickra Impact
 
 **The backtester that knows you would have moved the market — agent-based fills on
 the real historical L2 order book, so slippage is measured, not guessed.**
@@ -41,12 +39,16 @@ the fill stage** with an order-book-walk fill engine. It is usable in **Rust,
 Python, Node.js, WASM, C, C++, C#, Go, Java and R** over a JSON-over-C-ABI
 boundary (`command_json`), plus a reference CLI.
 
-> **Part of the [Wickra ecosystem](https://github.com/wickra-lib):** the same
-> data-driven core and ten-language binding surface also power
-> [wickra-backtest](https://github.com/wickra-lib/wickra-backtest),
-> [wickra-proof](https://github.com/wickra-lib/wickra-proof),
-> [wickra-verify](https://github.com/wickra-lib/wickra-verify) and 20 more — see
-> [the full list](https://github.com/wickra-lib).
+> **▶ Live demos:** the backtester compiled to WebAssembly, an equity curve building bar by bar — **[backtest-live.wickra.org](https://backtest-live.wickra.org)**;
+> one StrategySpec side by side in Python, Rust, JS and Go — **[playground.wickra.org](https://playground.wickra.org)**;
+> all 514 indicators of the core over a real Binance feed — **[live.wickra.org](https://live.wickra.org)**. Zero backend, all of them.
+
+**Part of the [Wickra ecosystem](#ecosystem):** the same
+data-driven core and ten-language binding surface also power
+[wickra-backtest](https://github.com/wickra-lib/wickra-backtest),
+[wickra-proof](https://github.com/wickra-lib/wickra-proof),
+[wickra-verify](https://github.com/wickra-lib/wickra-verify) and 20 more — see
+[the full list](https://github.com/wickra-lib).
 
 > **Status:** early development (0.1.0). The fill engine, the
 > reference CLI, the ten-language binding surface, the golden corpus and the full
@@ -71,6 +73,14 @@ println!("{} bps average slippage", report.impact_stats.avg_slippage_bps);
 `orderbook_walk` needs a book, and refuses a run whose data carries none rather
 than falling through to a no-op that would report zero slippage. The analytic
 models (`linear_impact`, `square_root`) need no book and say so.
+
+## Status
+
+**0.1.2 — the current release.** The core, the CLI, all ten language bindings,
+the byte-exact golden corpus, property + fuzz tests, benchmarks and one runnable
+example per language are in place and green across the full CI matrix (10
+languages × 3 OS). [ROADMAP.md](ROADMAP.md) has what is done, what is open and
+what is not planned.
 
 ## Documentation
 
@@ -140,6 +150,17 @@ The same handle + `command_json` + `version` surface ships for Rust, Python,
 Node.js, WASM, and — over a C ABI hub — C, C++, C#, Go, Java and R. Each binding
 forwards the command string verbatim, so the report they return is identical.
 
+## Project layout
+
+```
+crates/impact-core     the fill engine: book walk, impact models, latency
+crates/impact-cli      the reference `wickra-impact` binary
+crates/impact-bench    criterion benchmarks
+bindings/              the ten language surfaces over one C ABI hub
+golden/                the cross-language corpus: specs, data, blessed reports
+examples/              one runnable example per language
+```
+
 ## Building everything from source
 
 ```bash
@@ -155,17 +176,6 @@ R CMD INSTALL bindings/r                               # R
 
 The C-ABI consumers (C/C++, C#, Go, Java, R) need the C ABI library first —
 `cargo build --release -p wickra-impact-c` — on the loader path.
-
-## Project layout
-
-```
-crates/impact-core     the fill engine: book walk, impact models, latency
-crates/impact-cli      the reference `wickra-impact` binary
-crates/impact-bench    criterion benchmarks
-bindings/              the ten language surfaces over one C ABI hub
-golden/                the cross-language corpus: specs, data, blessed reports
-examples/              one runnable example per language
-```
 
 ## Testing
 
@@ -202,15 +212,6 @@ plus one book-walk fill per bar); measuring market impact is effectively free ov
 a naive backtest. See [BENCHMARKS.md](BENCHMARKS.md) and reproduce with
 `cargo bench -p impact-bench`.
 
-## Security
-
-See [SECURITY.md](SECURITY.md) and [THREAT_MODEL.md](THREAT_MODEL.md). Impact reads
-recorded market data and strategy specs only — no keys, no order placement.
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md).
-
 ## Ecosystem
 
 Part of the [Wickra](https://github.com/wickra-lib/wickra) family — each one a
@@ -246,37 +247,31 @@ with the in-browser demo and the benchmark figures, is at
 reference is at [docs.wickra.org](https://docs.wickra.org) and the org landing
 page at [wickra.org](https://wickra.org).
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Security
+
+See [SECURITY.md](SECURITY.md) and [THREAT_MODEL.md](THREAT_MODEL.md). Impact reads
+recorded market data and strategy specs only — no keys, no order placement.
+
 ## License
 
-Dual-licensed under either of
+Licensed under either of
 
-- Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE))
-- MIT license ([LICENSE-MIT](LICENSE-MIT))
+- Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE) or
+  <http://www.apache.org/licenses/LICENSE-2.0>)
+- MIT license ([LICENSE-MIT](LICENSE-MIT) or <http://opensource.org/licenses/MIT>)
 
-at your option.
+at your option. Use it, fork it, modify it, redistribute it — commercially or
+not — file issues, send pull requests; all welcome.
 
----
+### Contribution
 
-<p align="center">
-  <a href="https://github.com/wickra-lib/wickra-impact">
-    <img alt="GitHub stars" src="https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/stars.svg">
-  </a>
-  <a href="https://github.com/wickra-lib/wickra-impact/network/members">
-    <img alt="GitHub forks" src="https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/forks.svg">
-  </a>
-  <a href="https://github.com/wickra-lib/wickra-impact/issues">
-    <img alt="GitHub issues" src="https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/issues.svg">
-  </a>
-</p>
-
-<p align="center">
-  Built on <a href="https://github.com/wickra-lib/wickra">Wickra</a>. If it saved you time, the cheapest way to say thanks is to ⭐ the repo.
-</p>
-
-<p align="center">
-  <img alt="wickra-impact star history" width="640"
-       src="https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/star-history.svg">
-</p>
+Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
+dual licensed as above, without any additional terms or conditions.
 
 ## Disclaimer
 
