@@ -39,12 +39,16 @@ the fill stage** with an order-book-walk fill engine. It is usable in **Rust,
 Python, Node.js, WASM, C, C++, C#, Go, Java and R** over a JSON-over-C-ABI
 boundary (`command_json`), plus a reference CLI.
 
+> **▶ Live demos:** the backtester compiled to WebAssembly, an equity curve building bar by bar — **[backtest-live.wickra.org](https://backtest-live.wickra.org)**;
+> one StrategySpec side by side in Python, Rust, JS and Go — **[playground.wickra.org](https://playground.wickra.org)**;
+> all 514 indicators of the core over a real Binance feed — **[live.wickra.org](https://live.wickra.org)**. Zero backend, all of them.
+
 **Part of the [Wickra ecosystem](#ecosystem):** the same
-> data-driven core and ten-language binding surface also power
-> [wickra-backtest](https://github.com/wickra-lib/wickra-backtest),
-> [wickra-proof](https://github.com/wickra-lib/wickra-proof),
-> [wickra-verify](https://github.com/wickra-lib/wickra-verify) and 20 more — see
-> [the full list](https://github.com/wickra-lib).
+data-driven core and ten-language binding surface also power
+[wickra-backtest](https://github.com/wickra-lib/wickra-backtest),
+[wickra-proof](https://github.com/wickra-lib/wickra-proof),
+[wickra-verify](https://github.com/wickra-lib/wickra-verify) and 20 more — see
+[the full list](https://github.com/wickra-lib).
 
 > **Status:** early development (0.1.0). The fill engine, the
 > reference CLI, the ten-language binding surface, the golden corpus and the full
