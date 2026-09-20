@@ -4,14 +4,14 @@
 
 [![CI](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/ci.svg)](https://github.com/wickra-lib/wickra-impact/actions/workflows/ci.yml)
 [![codecov](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/codecov.svg)](https://codecov.io/gh/wickra-lib/wickra-impact)
-[![Go module](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/go.svg)](https://pkg.go.dev/github.com/wickra-lib/wickra-impact/bindings/go)
+[![Go module](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/go.svg)](https://pkg.go.dev/github.com/wickra-lib/wickra-impact-go)
 [![License: MIT OR Apache-2.0](https://raw.githubusercontent.com/wickra-lib/.github/main/profile/badges/wickra-impact/license.svg)](https://github.com/wickra-lib/wickra-impact#license)
 
 # Wickra Impact — Go
 
 ---
 
-**Part of the [Wickra ecosystem](#ecosystem): — for Go. `go get github.com/wickra-lib/wickra-impact/bindings/go` — over the C ABI via cgo, prebuilt library bundled in the module.**
+**Part of the [Wickra ecosystem](#ecosystem): — for Go. `go get github.com/wickra-lib/wickra-impact-go` — over the C ABI via cgo, prebuilt library bundled in the module.**
 
 Go bindings for the Wickra Impact market-impact backtester over its C ABI hub via
 cgo. An `Impact` is built from a spec JSON and driven over a JSON boundary, so the
