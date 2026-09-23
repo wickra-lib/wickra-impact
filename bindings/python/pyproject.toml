@@ -4,7 +4,7 @@ build-backend = "maturin"
 
 [project]
 name = "wickra-impact"
-version = "0.1.3"
+version = "0.1.4"
 description = "The backtester that measures market impact: agent-based fills on the real historical L2 order book."
 readme = "README.md"
 license = "MIT OR Apache-2.0"
