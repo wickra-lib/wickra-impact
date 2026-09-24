@@ -16,7 +16,7 @@ workspace = true
 # Default features off; the `parallel` feature below re-enables rayon so the
 # default bench measures the parallel path and `--no-default-features` measures
 # the single-threaded (WASM) path.
-wickra-impact-core = { path = "../impact-core", version = "0.1.4", default-features = false }
+wickra-impact-core = { path = "../impact-core", version = "0.1.5", default-features = false }
 
 [dev-dependencies]
 criterion = { workspace = true }
