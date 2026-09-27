@@ -1052,7 +1052,7 @@ dependencies = [
 
 [[package]]
 name = "impact-bench"
-version = "0.1.5"
+version = "0.1.6"
 dependencies = [
  "codspeed-criterion-compat",
  "serde_json",
@@ -1704,6 +1704,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "ref-cast"
+version = "1.0.27"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7e440fb4e4b4147295338efb76001ab9e4efc0e5839df2c47fc5ac2381d365c3"
+dependencies = [
+ "ref-cast-impl",
+]
+
+[[package]]
+name = "ref-cast-impl"
+version = "1.0.27"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "92ecd8964f8453721699a1ed72037b0db49ce2f5a5138486ee89bed6f67cdf3a"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 3.0.6",
+]
+
+[[package]]
 name = "regex"
 version = "1.13.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1902,11 +1922,12 @@ dependencies = [
 
 [[package]]
 name = "schemars"
-version = "0.8.22"
+version = "1.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3fbf2ae1b8bc8e02df939598064d22402220cd5bbcca1c76f7d6a310974d5615"
+checksum = "687274d293b6cdc6e73e0fee520bf2049650090d7164f87672d212a3c530cf4a"
 dependencies = [
  "dyn-clone",
+ "ref-cast",
  "schemars_derive",
  "serde",
  "serde_json",
@@ -1914,14 +1935,14 @@ dependencies = [
 
 [[package]]
 name = "schemars_derive"
-version = "0.8.22"
+version = "1.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "32e265784ad618884abaea0600a9adf15393368d840e0222d101a072f3f7534d"
+checksum = "d98c67716b46af2f0b8cf752abc930f6f9aecfbf671ecfb531db8a31dbe4e2ba"
 dependencies = [
  "proc-macro2",
  "quote",
  "serde_derive_internals",
- "syn 2.0.119",
+ "syn 3.0.6",
 ]
 
 [[package]]
@@ -1976,13 +1997,13 @@ dependencies = [
 
 [[package]]
 name = "serde_derive_internals"
-version = "0.29.1"
+version = "0.30.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "18d26a20a969b9e3fdf2fc2d9f21eda6c40e2de84c9408bb5d3b05d499aae711"
+checksum = "f852137cce035d6a4df67ccce505ff6b3e9fd3a10e3e52b24dc71e650bb1a9bd"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.119",
+ "syn 3.0.6",
 ]
 
 [[package]]
@@ -2606,9 +2627,9 @@ dependencies = [
 
 [[package]]
 name = "wickra-backtest"
-version = "0.1.8"
+version = "0.1.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "430be1850499417f9123b0300871b8e87f757a87e3cdd55cb24dbf445bebe65d"
+checksum = "6aa26d4b854df8075c8b44e45538ff3883be330dd1d57cdb414fd57c5fc054b2"
 dependencies = [
  "wickra-backtest-core",
  "wickra-backtest-data",
@@ -2616,9 +2637,9 @@ dependencies = [
 
 [[package]]
 name = "wickra-backtest-core"
-version = "0.1.8"
+version = "0.1.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1ff75dcf5ca69c5ab83db9ab237fcd32c4f505bbc6b59d7088c566bb984ca34f"
+checksum = "436b31028d78e0db12ecb4030339fe4301e4abc0b12439b194d2b955a5eed15d"
 dependencies = [
  "schemars",
  "serde",
@@ -2629,9 +2650,9 @@ dependencies = [
 
 [[package]]
 name = "wickra-backtest-data"
-version = "0.1.8"
+version = "0.1.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3a1a27cb09ae9c9f664974df8b7979b4a3e5e37a405fecd9b755bcb9871c480d"
+checksum = "11d4bbe3f8958abc39a4ff21219f3e2b37177f7ceda5e4b9769fb136eafb3a6d"
 dependencies = [
  "serde_json",
  "wickra-backtest-core",
@@ -2684,7 +2705,7 @@ dependencies = [
 
 [[package]]
 name = "wickra-impact"
-version = "0.1.5"
+version = "0.1.6"
 dependencies = [
  "clap",
  "serde",
@@ -2694,7 +2715,7 @@ dependencies = [
 
 [[package]]
 name = "wickra-impact-c"
-version = "0.1.5"
+version = "0.1.6"
 dependencies = [
  "serde_json",
  "wickra-impact-core",
@@ -2702,7 +2723,7 @@ dependencies = [
 
 [[package]]
 name = "wickra-impact-core"
-version = "0.1.5"
+version = "0.1.6"
 dependencies = [
  "proptest",
  "rayon",
@@ -2715,7 +2736,7 @@ dependencies = [
 
 [[package]]
 name = "wickra-impact-example"
-version = "0.1.5"
+version = "0.1.6"
 dependencies = [
  "serde_json",
  "wickra-impact-core",
@@ -2723,7 +2744,7 @@ dependencies = [
 
 [[package]]
 name = "wickra-impact-node"
-version = "0.1.5"
+version = "0.1.6"
 dependencies = [
  "napi",
  "napi-build",
@@ -2733,7 +2754,7 @@ dependencies = [
 
 [[package]]
 name = "wickra-impact-python"
-version = "0.1.5"
+version = "0.1.6"
 dependencies = [
  "pyo3",
  "wickra-impact-core",
@@ -2741,7 +2762,7 @@ dependencies = [
 
 [[package]]
 name = "wickra-impact-wasm"
-version = "0.1.5"
+version = "0.1.6"
 dependencies = [
  "wasm-bindgen",
  "wickra-impact-core",
