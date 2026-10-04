@@ -50,7 +50,7 @@ mod tests {
 
     #[test]
     fn versions_are_reported() {
-        assert!(!version().is_empty());
-        assert!(!engine_version().is_empty());
+        assert_ne!(version(), "");
+        assert_ne!(engine_version(), "");
     }
 }
