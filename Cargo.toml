@@ -35,7 +35,6 @@ clap = { version = "4", features = ["derive"] }
 # carries one `wickra-core` and one set of indicator types rather than two that
 # share none at all.
 wickra-core = "1.0"
-wickra-data = "1.0"
 # The backtest engine IMPACT inherits: StrategySpec, RunRequest, BacktestReport,
 # the OrderBook/Level types and the streaming engine. IMPACT replaces only the
 # fill stage.
