@@ -124,10 +124,8 @@ mod tests {
     #[test]
     fn version_command() {
         let mut h = Impact::new(SPEC).unwrap();
-        assert!(h
-            .command_json(r#"{"cmd":"version"}"#)
-            .unwrap()
-            .contains("0.1"));
+        let expected = format!(r#"{{"version":"{}"}}"#, env!("CARGO_PKG_VERSION"));
+        assert_eq!(h.command_json(r#"{"cmd":"version"}"#).unwrap(), expected);
     }
 
     #[test]
