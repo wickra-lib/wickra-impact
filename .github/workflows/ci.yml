@@ -65,7 +65,7 @@ jobs:
       - run: cargo clippy --workspace --all-targets --no-default-features -- -D warnings
 
   msrv:
-    name: MSRV workspace (1.86)
+    name: MSRV workspace (1.87)
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -74,12 +74,12 @@ jobs:
           persist-credentials: false
       - uses: ./.github/actions/setup-rust
         with:
-          toolchain: "1.86"
+          toolchain: "1.87"
       - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
       # Default features build. The Python binding needs maturin's platform link
       # flags and is built by the `python` job. The Node binding is Rust 1.88
       # (napi-build) and is gated by `msrv-node`. The core, CLI and C ABI stay at
-      # 1.86.
+      # 1.87.
       - run: cargo build --workspace --exclude wickra-impact-python --exclude wickra-impact-node
 
   msrv-node:
@@ -95,7 +95,7 @@ jobs:
           toolchain: "1.88"
       - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
       # The Node binding's napi-build needs Rust >= 1.88, above the workspace
-      # 1.86 minimum, so it gets its own MSRV gate.
+      # 1.87 minimum, so it gets its own MSRV gate.
       - run: cargo build -p wickra-impact-node
 
   supply-chain:
