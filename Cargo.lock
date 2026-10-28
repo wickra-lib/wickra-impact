@@ -1052,7 +1052,7 @@ dependencies = [
 
 [[package]]
 name = "impact-bench"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "codspeed-criterion-compat",
  "serde_json",
@@ -2706,7 +2706,7 @@ dependencies = [
 
 [[package]]
 name = "wickra-impact"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "clap",
  "serde",
@@ -2716,7 +2716,7 @@ dependencies = [
 
 [[package]]
 name = "wickra-impact-c"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "serde_json",
  "wickra-impact-core",
@@ -2724,7 +2724,7 @@ dependencies = [
 
 [[package]]
 name = "wickra-impact-core"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "proptest",
  "rayon",
@@ -2737,7 +2737,7 @@ dependencies = [
 
 [[package]]
 name = "wickra-impact-example"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "serde_json",
  "wickra-impact-core",
@@ -2745,7 +2745,7 @@ dependencies = [
 
 [[package]]
 name = "wickra-impact-node"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "napi",
  "napi-build",
@@ -2755,7 +2755,7 @@ dependencies = [
 
 [[package]]
 name = "wickra-impact-python"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "pyo3",
  "wickra-impact-core",
@@ -2763,7 +2763,7 @@ dependencies = [
 
 [[package]]
 name = "wickra-impact-wasm"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "wasm-bindgen",
  "wickra-impact-core",
