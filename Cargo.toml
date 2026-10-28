@@ -42,9 +42,9 @@ wickra-core = "2.0"
 # "=0.1.4" to the same crate today, but a consumer or a sibling that lands on a
 # newer patch would leave two copies of the engine in one graph, and two copies
 # do not share a BacktestReport or a Candle. Move this with the family.
-wickra-backtest = "=0.2.0"
+wickra-backtest = "=0.2.1"
 # Historical L2 order books IMPACT walks; used behind the `live` feature.
-wickra-exchange = "=0.2.0"
+wickra-exchange = "=0.2.1"
 cbindgen = "0.27"
 criterion = { package = "codspeed-criterion-compat", version = "5.0.1", features = ["html_reports"] }
 proptest = "1"
