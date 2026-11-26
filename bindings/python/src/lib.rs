@@ -51,7 +51,8 @@ impl PyImpact {
 
 /// The native module (`wickra_impact._wickra_impact`).
 #[pymodule]
-fn _wickra_impact(module: &Bound<'_, PyModule>) -> PyResult<()> {
+#[pyo3(name = "_wickra_impact")]
+fn wickra_impact_extension(module: &Bound<'_, PyModule>) -> PyResult<()> {
     module.add("__version__", env!("CARGO_PKG_VERSION"))?;
     module.add_class::<PyImpact>()?;
     Ok(())
