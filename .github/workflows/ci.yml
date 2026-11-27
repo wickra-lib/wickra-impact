@@ -11,6 +11,7 @@ on:
   # between two topic branches runs the whole matrix twice for a merge nobody
   # is asking for yet.
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
     branches: [main]
 
 permissions:
@@ -22,6 +23,7 @@ concurrency:
 
 jobs:
   test:
+    if: ${{ !github.event.pull_request.draft }}
     name: Test (${{ matrix.os }}, ${{ matrix.features }})
     strategy:
       fail-fast: false
@@ -49,6 +51,7 @@ jobs:
       - run: cargo test --workspace ${{ matrix.features }} --exclude wickra-impact-c --exclude wickra-impact-python
 
   lint:
+    if: ${{ !github.event.pull_request.draft }}
     name: Format & Clippy
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -65,6 +68,7 @@ jobs:
       - run: cargo clippy --workspace --all-targets --no-default-features -- -D warnings
 
   msrv:
+    if: ${{ !github.event.pull_request.draft }}
     name: MSRV workspace (1.87)
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -83,6 +87,7 @@ jobs:
       - run: cargo build --workspace --exclude wickra-impact-python --exclude wickra-impact-node
 
   msrv-node:
+    if: ${{ !github.event.pull_request.draft }}
     name: MSRV node (1.88)
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -99,6 +104,7 @@ jobs:
       - run: cargo build -p wickra-impact-node
 
   supply-chain:
+    if: ${{ !github.event.pull_request.draft }}
     name: cargo-deny
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -112,6 +118,7 @@ jobs:
       - run: cargo deny check
 
   cli:
+    if: ${{ !github.event.pull_request.draft }}
     name: CLI smoke (spec + data, both formats)
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -133,6 +140,7 @@ jobs:
           ./target/debug/wickra-impact --spec golden/specs/thin_book.json --data golden/data/thin_book.json --format json | grep -q '"impact_stats"'
 
   c-abi:
+    if: ${{ !github.event.pull_request.draft }}
     name: C ABI on ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -176,6 +184,7 @@ jobs:
           ctest --test-dir examples/c/build -C Release --output-on-failure
 
   python:
+    if: ${{ !github.event.pull_request.draft }}
     name: Python ${{ matrix.python-version }} on ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -233,6 +242,7 @@ jobs:
           fi
 
   node:
+    if: ${{ !github.event.pull_request.draft }}
     name: Node ${{ matrix.node-version }} on ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -302,6 +312,7 @@ jobs:
             });'
 
   wasm:
+    if: ${{ !github.event.pull_request.draft }}
     name: WASM
     runs-on: ubuntu-latest
     timeout-minutes: 25
@@ -331,6 +342,7 @@ jobs:
         working-directory: bindings/wasm
 
   go:
+    if: ${{ !github.event.pull_request.draft }}
     name: Go on ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -389,6 +401,7 @@ jobs:
           go test ./...
 
   csharp:
+    if: ${{ !github.event.pull_request.draft }}
     name: C# on ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -413,6 +426,7 @@ jobs:
         run: dotnet test bindings/csharp/WickraImpact.Tests/WickraImpact.Tests.csproj -c Release
 
   java:
+    if: ${{ !github.event.pull_request.draft }}
     name: Java on ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -444,6 +458,7 @@ jobs:
           command: mvn -B -f bindings/java test
 
   r:
+    if: ${{ !github.event.pull_request.draft }}
     name: R on ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -485,6 +500,7 @@ jobs:
           Rscript bindings/r/tests/run_tests.R
 
   coverage:
+    if: ${{ !github.event.pull_request.draft }}
     name: Coverage
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -518,6 +534,7 @@ jobs:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   osv:
+    if: ${{ !github.event.pull_request.draft }}
     name: osv-scanner
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -569,6 +586,7 @@ jobs:
   # A job-level continue-on-error would not do: the check run still concludes
   # `failure`, the commit shows red and a release gate reading check runs stops.
   links:
+    if: ${{ !github.event.pull_request.draft }}
     name: Links (advisory)
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -601,6 +619,7 @@ jobs:
   # published package.
 
   binding-surface:
+    if: ${{ !github.event.pull_request.draft }}
     name: Binding surface parity
     runs-on: ubuntu-latest
     timeout-minutes: 10 # static checks; if they are not done in ten minutes they are stuck
@@ -641,6 +660,7 @@ jobs:
         run: python3 scripts/check_r_abi_skew.py
 
   semver:
+    if: ${{ !github.event.pull_request.draft }}
     name: Public API (cargo-semver-checks)
     runs-on: ubuntu-latest
     timeout-minutes: 30 # backstop: it builds rustdoc JSON for each crate and its baseline
@@ -699,6 +719,7 @@ jobs:
           cargo semver-checks check-release "${published[@]}"
 
   fuzz-smoke:
+    if: ${{ !github.event.pull_request.draft }}
     name: Fuzz (smoke)
     runs-on: ubuntu-latest
     timeout-minutes: 25
@@ -759,6 +780,7 @@ jobs:
   # is.
 
   examples:
+    if: ${{ !github.event.pull_request.draft }}
     name: Examples
     runs-on: ubuntu-latest
     timeout-minutes: 40
@@ -921,6 +943,7 @@ jobs:
           echo "$out" | grep -q 'avg slippage: 44'
 
   python-wheel-container-smoke:
+    if: ${{ !github.event.pull_request.draft }}
     name: Python wheel (${{ matrix.manylinux }} smoke)
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -969,7 +992,7 @@ jobs:
   # checks are left out on purpose -- an outside outage must not hold a merge.
   ci-ok:
     name: ci-ok
-    if: always()
+    if: ${{ !github.event.pull_request.draft && (always()) }}
     needs:
       - test
       - lint
